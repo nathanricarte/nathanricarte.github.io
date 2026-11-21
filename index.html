@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nathan Ricarte | UX Designer &amp; Fotógrafo</title>
+<meta name="description" content="Portfólio de Nathan Ricarte, UX/UI designer e fotógrafo em Fortaleza, CE.">
+<meta property="og:title" content="Nathan Ricarte | UX Designer & Fotógrafo">
+<meta property="og:description" content="UX designer focado em pesquisa, usabilidade e acessibilidade, e fotógrafo de moda street em Fortaleza.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B0B0C'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Arial' font-weight='700' font-size='26' fill='%23C8FF4D'%3ENR%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0B0C;--bg-2:#111113;--bg-3:#18181B;--line:#1E1E21;--line-2:#2A2A2F;
+  --fg:#F2F2F0;--fg-2:#C9C9CE;--fg-3:#A5A5AB;--fg-4:#8E8E94;
+  --acc:#C8FF4D;--acc-ink:#0B0B0C;
+  --display:'Space Grotesk',system-ui,sans-serif;--body:Inter,system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+  --pad:clamp(20px,5vw,72px);--max:1296px;--ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}
+::selection{background:var(--acc);color:var(--acc-ink)}
+.wrap{max-width:var(--max);margin:0 auto}
+.mono{font-family:var(--mono)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- atmosphere ---------- */
+#scan{position:fixed;inset:0;z-index:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.04) 0,rgba(255,255,255,.04) 1px,transparent 1px,transparent 3px)}
+#noise{position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:60;pointer-events:none;background:url(img/noise.png);background-size:256px;opacity:.75;mix-blend-mode:overlay;animation:noise .5s steps(5) infinite,flicker .2s infinite}
+@keyframes noise{0%{transform:translate(0,0)}20%{transform:translate(-15%,5%)}40%{transform:translate(-5%,25%)}60%{transform:translate(15%,0)}80%{transform:translate(3%,35%)}100%{transform:translate(0,0)}}
+@keyframes flicker{0%,100%{opacity:.75}50%{opacity:.62}}
+#app,header.site,footer.site{position:relative;z-index:1}
+
+/* ---------- cursor ---------- */
+.cur-dot,.cur-ring{position:fixed;left:0;top:0;pointer-events:none;z-index:200;border-radius:50%;opacity:0;transition:opacity .3s}
+.cur-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--acc)}
+.cur-ring{width:40px;height:40px;margin:-20px 0 0 -20px;border:1px solid rgba(242,242,240,.55);display:flex;align-items:center;justify-content:center;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .3s,border-color .3s,opacity .3s}
+.cur-ring span{font:500 12px var(--mono);color:var(--acc-ink);opacity:0;transition:opacity .2s;white-space:nowrap}
+.cur-on .cur-dot,.cur-on .cur-ring{opacity:1}
+.cur-ring.is-link{width:64px;height:64px;margin:-32px 0 0 -32px;border-color:var(--acc);background:rgba(200,255,77,.08)}
+.cur-ring.is-view{width:104px;height:104px;margin:-52px 0 0 -52px;border-color:var(--acc);background:var(--acc)}
+.cur-ring.is-view span{opacity:1}
+@media (pointer:fine){html.has-cursor,html.has-cursor *{cursor:none!important}}
+
+/* ---------- curtain (page transition) ---------- */
+#curtain{position:fixed;inset:0;z-index:150;background:var(--acc);transform:translateY(100%);pointer-events:none}
+#curtain.cover{transition:transform .45s var(--ease);transform:translateY(0)}
+#curtain.leave{transition:transform .5s var(--ease);transform:translateY(-100%)}
+
+/* ---------- header ---------- */
+header.site{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px var(--pad);background:rgba(11,11,12,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.logo{font:700 18px var(--display);letter-spacing:.04em}
+.nav{display:flex;gap:28px;font:400 13px var(--mono)}
+.nav a.on{color:var(--acc)}
+.head-right{display:flex;align-items:center;gap:14px}
+.status{display:flex;align-items:center;gap:10px;font:400 12px var(--mono);color:var(--fg-3)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--acc);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(200,255,77,.6)}100%{box-shadow:0 0 0 10px rgba(200,255,77,0)}}
+.lang{display:flex;gap:2px;padding:3px;border-radius:999px;border:1px solid var(--line-2)}
+.lang button{min-height:32px;padding:0 11px;border-radius:999px;font:400 12px var(--mono);color:var(--fg-3);transition:background .25s,color .25s,transform .25s var(--ease)}
+.lang button:hover{transform:translateY(-2px);color:var(--acc)}
+.lang button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.menu-btn{display:none;width:44px;height:44px;border-radius:999px;border:1px solid var(--line-2);align-items:center;justify-content:center}
+.lift{display:inline-block;transition:transform .25s var(--ease),text-shadow .25s,color .25s}
+.lift:hover{transform:translateY(-3px) scale(1.08);text-shadow:0 0 18px rgba(200,255,77,.6);color:var(--acc)}
+@media (max-width:900px){
+  .status{display:none}
+  .nav{position:fixed;inset:73px 0 auto 0;flex-direction:column;gap:0;background:rgba(11,11,12,.97);border-bottom:1px solid var(--line);padding:8px var(--pad) 24px;font-size:22px;transform:translateY(-12px);opacity:0;pointer-events:none;transition:opacity .3s,transform .3s var(--ease)}
+  .nav a{padding:14px 0;border-bottom:1px solid var(--line)}
+  .nav.open{opacity:1;transform:none;pointer-events:auto}
+  .menu-btn{display:inline-flex}
+}
+
+/* ---------- buttons & chips ---------- */
+.btn{display:inline-flex;align-items:center;gap:12px;min-height:48px;padding:0 24px;border-radius:999px;border:1px solid var(--line-2);font:500 15px var(--display);transition:transform .25s var(--ease),box-shadow .25s,border-color .25s,background .25s,color .25s}
+.btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 32px rgba(200,255,77,.22),0 0 0 1px var(--acc);border-color:var(--acc)}
+.btn.solid{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);min-height:52px;padding:0 28px;font-size:16px}
+.btn svg{width:18px;height:18px}
+.badge{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;padding:6px 12px;border-radius:999px;border:1px solid var(--line-2);font:500 11px var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--fg)}
+.badge.study{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.badge.soon{border-style:dashed;border-color:#5E5E64;color:var(--fg-3)}
+.badge.live{border-color:var(--acc);color:var(--acc)}
+.label{font:400 13px var(--mono);color:var(--acc)}
+.h2{margin:0;font:700 clamp(36px,5vw,64px)/1 var(--display);letter-spacing:-.03em}
+.sec{padding:120px var(--pad)}
+.sec-head{display:flex;flex-wrap:wrap;gap:16px;align-items:baseline;justify-content:space-between;margin-bottom:48px}
+.ph{display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;background:var(--bg-2);border:1px dashed var(--line-2);font:400 12px var(--mono);color:var(--fg-4)}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(36px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.split-ch{display:inline-block;opacity:0;transform:translateY(60%) rotate(4deg);animation:ch .8s var(--ease) forwards}
+@keyframes ch{to{opacity:1;transform:none}}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:clamp(80px,12vw,160px) var(--pad) 96px;overflow:hidden}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(#18181B 1px,transparent 1px),linear-gradient(90deg,#18181B 1px,transparent 1px);background-size:64px 64px;animation:gridmove 4s linear infinite;-webkit-mask-image:radial-gradient(ellipse at 50% 40%,#000 30%,transparent 75%);mask-image:radial-gradient(ellipse at 50% 40%,#000 30%,transparent 75%)}
+@keyframes gridmove{to{background-position:0 64px}}
+.glow{position:absolute;width:520px;height:520px;border-radius:50%;background:radial-gradient(circle,rgba(200,255,77,.18),transparent 65%);filter:blur(20px);animation:drift 14s ease-in-out infinite;pointer-events:none}
+@keyframes drift{50%{transform:translate(120px,-60px) scale(1.15)}}
+.scanline{position:absolute;left:0;right:0;height:120px;background:linear-gradient(transparent,rgba(200,255,77,.06),transparent);animation:scanl 6s linear infinite}
+@keyframes scanl{from{top:-10%}to{top:110%}}
+.hero h1{margin:0;font:700 clamp(54px,11vw,168px)/1.02 var(--display);letter-spacing:-.04em}
+.hero h1 .stroke{color:transparent;-webkit-text-stroke:1.5px var(--fg)}
+.blink{color:var(--acc);-webkit-text-stroke:0;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.hero-foot{display:flex;flex-wrap:wrap;gap:32px;align-items:flex-end;justify-content:space-between;margin-top:48px}
+.hero-foot p{margin:0;max-width:520px;font-size:19px;line-height:1.55;color:var(--fg-2)}
+
+/* split panels */
+.panels{display:flex;flex-wrap:wrap;gap:16px}
+.split-w{display:inline-block;white-space:nowrap}
+.panel{position:relative;flex:1 1 420px;height:560px;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--bg-2);transition:flex-grow .6s var(--ease)}
+.panel:hover{flex-grow:1.6}
+.panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(.6);opacity:.55;transition:transform .8s var(--ease),filter .6s}
+.panel:hover img{transform:scale(1.06);filter:grayscale(0)}
+.panel .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,12,.05) 30%,rgba(11,11,12,.95))}
+.panel .txt{position:absolute;left:36px;right:36px;bottom:36px;display:flex;flex-direction:column;gap:12px}
+.panel .big{font:700 clamp(34px,4vw,56px)/1 var(--display);letter-spacing:-.02em}
+/* nunca quebrar palavras no meio */
+html,body{word-break:normal!important;overflow-wrap:normal!important;hyphens:manual!important}
+h1,h2,h3,b,.big,.nm,.name,.lead,.sub,.label,.badge,.tag,.btn,.chip,p,span,a{word-break:normal!important;overflow-wrap:normal!important;hyphens:manual!important}
+h1,h2,.big,.nm,.name,.sub,.lead{text-wrap:balance}
+.panel .txt{min-width:0}
+.panel .mosaic{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:6px;opacity:.6}
+.panel .mosaic>*{border-radius:10px;background:var(--bg-3);overflow:hidden}
+.panel .mosaic img{position:static;width:100%;height:100%;opacity:1;filter:none}
+
+/* marquee */
+.marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden;white-space:nowrap}
+.marquee .track{display:inline-flex;gap:48px;animation:mq 26s linear infinite;font:500 34px var(--display);color:#5E5E64}
+.marquee .track b{color:var(--acc);font-weight:500}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* featured cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:20px}
+.card{display:flex;flex-direction:column;gap:18px;padding:14px;border-radius:20px;background:var(--bg-2);border:1px solid var(--line);transition:border-color .4s}
+.card:hover{border-color:var(--line-2)}
+.card .img{height:340px;border-radius:12px;overflow:hidden;background:var(--bg-3)}
+.card .img img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.card:hover .img img{transform:scale(1.05)}
+.card .meta{display:flex;justify-content:space-between;gap:12px;padding:0 8px 8px}
+.card .meta>div{display:flex;flex-direction:column;gap:8px}
+.card .tag{font:400 12px var(--mono);color:var(--fg-3)}
+.card .name{font:700 28px var(--display)}
+.card .desc{font-size:15px;color:var(--fg-2);line-height:1.5}
+.arrow{flex:none;width:26px;height:26px;transition:transform .3s,color .3s}
+.card:hover .arrow{transform:translate(4px,-4px);color:var(--acc)}
+
+/* photo preview + gallery */
+.mosaic-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:200px;grid-auto-flow:dense;gap:10px}
+.tile{position:relative;margin:0;border-radius:14px;overflow:hidden;background:var(--bg-3);border:1px solid var(--line);transition:opacity .5s,transform .5s var(--ease),filter .5s,border-color .4s}
+.tile:hover{transform:scale(.985);border-color:var(--acc)}
+.tile img{width:100%;height:100%;object-fit:cover}
+.tile .phl{position:absolute;top:14px;left:14px;font:400 11px var(--mono);color:var(--fg-4)}
+.tile figcaption{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;gap:8px;padding:16px;background:linear-gradient(transparent,rgba(0,0,0,.85));font:400 12px var(--mono);opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s}
+.tile:hover figcaption{opacity:1;transform:none}
+.tile.dim{opacity:.15;filter:grayscale(1);pointer-events:none}
+.w2{grid-column:span 2}.h2r{grid-row:span 2}
+@media (max-width:700px){.mosaic-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:150px}}
+.chips{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chip{min-height:44px;padding:0 20px;border-radius:999px;border:1px solid var(--line-2);font:400 13px var(--mono);transition:transform .25s var(--ease),box-shadow .25s,background .3s,color .3s,border-color .3s}
+.chip:hover{transform:translateY(-3px) scale(1.04);border-color:var(--acc);box-shadow:0 12px 32px rgba(200,255,77,.18)}
+.chip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acc-ink)}
+.chip small{opacity:.6;margin-left:4px;font-size:inherit}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:120;background:rgba(5,5,6,.94);display:none;align-items:center;justify-content:center;padding:72px 80px}
+.lb.open{display:flex;animation:fadein .3s}
+@keyframes fadein{from{opacity:0}}
+.lb figure{margin:0;max-width:100%;max-height:100%;display:flex;flex-direction:column;gap:14px;align-items:center}
+.lb img{max-width:100%;max-height:calc(100vh - 180px);border-radius:10px}
+.lb .ph{width:min(70vw,900px);aspect-ratio:3/2;border-radius:10px}
+.lb figcaption{font:400 13px var(--mono);color:var(--fg-3)}
+.lb .ctl{position:absolute;width:52px;height:52px;border-radius:999px;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;background:rgba(11,11,12,.6);transition:border-color .25s,transform .25s var(--ease)}
+.lb .ctl:hover{border-color:var(--acc);transform:scale(1.08)}
+.lb .prev{left:20px;top:50%;margin-top:-26px}.lb .next{right:20px;top:50%;margin-top:-26px}.lb .close{right:20px;top:20px}
+.lb svg{width:20px;height:20px}
+
+/* about */
+.about{display:flex;flex-wrap:wrap;gap:64px}
+.about .l{flex:1 1 360px;display:flex;flex-direction:column;gap:20px}
+.about .r{flex:2 1 480px;display:flex;flex-direction:column;gap:28px;padding-top:12px}
+.about .lead{margin:0;font:400 clamp(24px,2.6vw,36px)/1.3 var(--display);letter-spacing:-.01em}
+.about p{margin:0;font-size:17px;line-height:1.65;color:var(--fg-2);max-width:640px}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:8px}
+@media (max-width:560px){.facts{grid-template-columns:1fr}}
+.fact{padding:20px;border-radius:14px;border:1px solid var(--line);display:flex;flex-direction:column;gap:8px;background:var(--bg)}
+.fact span:first-child{font:400 12px var(--mono);color:var(--acc)}
+.now{display:flex;gap:12px;align-items:center;padding:16px 20px;border-radius:14px;background:var(--bg-2);border:1px solid var(--line);font-size:15px;color:var(--fg-2)}
+.now b{font:500 12px var(--mono);color:var(--acc);font-weight:500}
+
+/* contact */
+.contact{position:relative;overflow:hidden;border-top:1px solid var(--line);padding:140px var(--pad) 64px}
+.contact .big{display:block;font:700 clamp(48px,9vw,136px)/.95 var(--display);letter-spacing:-.04em}
+.links{display:flex;flex-wrap:wrap;gap:12px}
+.toast{position:fixed;left:50%;bottom:28px;z-index:130;transform:translate(-50%,20px);opacity:0;padding:12px 20px;border-radius:999px;background:var(--acc);color:var(--acc-ink);font:500 13px var(--mono);transition:opacity .3s,transform .3s var(--ease);pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+footer.site{border-top:1px solid var(--line);padding:32px var(--pad)}
+footer.site .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;font:400 12px var(--mono);color:var(--fg-4)}
+
+/* ux list */
+.rows{border-top:1px solid var(--line)}
+.row{position:relative;display:flex;flex-wrap:wrap;align-items:center;gap:20px 40px;padding:40px 8px;border-bottom:1px solid var(--line);transition:background .4s,padding .4s var(--ease)}
+.row:hover{background:var(--bg-2);padding-left:24px}
+.row .num{width:48px;font:400 14px var(--mono);color:var(--fg-4);transition:color .3s}
+.row:hover .num{color:var(--acc)}
+.row .nm{flex:1 1 320px;font:700 clamp(36px,5vw,72px)/1 var(--display);letter-spacing:-.03em}
+.row .wh{flex:1 1 260px;display:flex;flex-direction:column;gap:6px}
+.row .wh span:first-child{font-size:16px;color:var(--fg-2)}
+.row .wh span:last-child{font:400 12px var(--mono);color:var(--fg-4)}
+.row .thumb{position:absolute;right:18%;top:50%;width:280px;height:190px;margin-top:-95px;border-radius:12px;overflow:hidden;pointer-events:none;box-shadow:0 30px 60px rgba(0,0,0,.6);background:var(--bg-3);opacity:0;transform:scale(.92) rotate(-2deg);transition:opacity .4s,transform .5s var(--ease);z-index:2}
+.row .thumb img{width:100%;height:100%;object-fit:cover}
+.row:hover .thumb{opacity:1;transform:none}
+@media (max-width:900px){.row .thumb{display:none}}
+.studies{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,520px),1fr));gap:20px;max-width:760px}
+.study{display:flex;flex-direction:column;gap:16px}
+.study .img{aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:var(--bg-3);border:1px solid var(--line)}
+.study img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5);transition:transform .7s var(--ease),filter .5s}
+.study:hover img{transform:scale(1.06);filter:none}
+
+/* case */
+.progress{position:fixed;left:0;top:0;height:2px;background:var(--acc);z-index:30;width:0}
+.case-hero{padding:clamp(64px,9vw,120px) var(--pad) 56px}
+.case-hero .wrap{display:flex;flex-direction:column;gap:32px}
+.case-hero h1{margin:0;font:700 clamp(64px,12vw,180px)/.9 var(--display);letter-spacing:-.05em}
+.case-hero .sub{margin:0;max-width:820px;font:400 clamp(22px,2.4vw,32px)/1.3 var(--display);color:var(--fg-2)}
+.metas{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.metas div{background:var(--bg);padding:22px;display:flex;flex-direction:column;gap:8px}
+.metas span:first-child{font:400 12px var(--mono);color:var(--fg-4)}
+.cover{border-radius:24px;overflow:hidden;border:1px solid var(--line);background:var(--bg-2)}
+.cover img{width:100%;height:auto;animation:zoomin 1.6s var(--ease)}
+.cover .ph{aspect-ratio:16/9;border:0}
+@keyframes zoomin{from{transform:scale(1.12)}}
+.block{display:flex;flex-wrap:wrap;gap:40px 80px}
+.block .k{flex:1 1 240px}
+.block .v{flex:3 1 520px;display:flex;flex-direction:column;gap:20px}
+.block .v .big{margin:0;font:400 clamp(24px,2.8vw,38px)/1.28 var(--display);letter-spacing:-.01em}
+.block .v p{margin:0;font-size:17px;line-height:1.7;color:var(--fg-2)}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
+.step{display:flex;flex-direction:column;gap:14px;padding:28px;border-radius:16px;border:1px solid var(--line);background:var(--bg);min-height:210px;transition:border-color .4s,background .4s,transform .4s var(--ease)}
+.step:hover{border-color:var(--acc);background:var(--bg-2);transform:translateY(-4px)}
+.step span:first-child{font:400 13px var(--mono);color:var(--fg-4)}
+.step b{font:700 24px var(--display)}
+.step p{margin:0;font-size:15px;line-height:1.6;color:var(--fg-2)}
+.feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px}
+.feat{display:flex;flex-direction:column;gap:14px}
+.feat .ph,.feat .fimg{aspect-ratio:4/3;border-radius:16px;overflow:hidden}
+.feat .fimg img{width:100%;height:100%;object-fit:cover}
+.feat b{font:700 22px var(--display)}
+.feat p{margin:0;font-size:15px;line-height:1.6;color:var(--fg-2)}
+.learn{padding:56px;border-radius:24px;background:var(--bg-2);border:1px solid var(--line)}
+.learn ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:16px}
+.learn li{display:flex;gap:14px;font-size:17px;line-height:1.6;color:var(--fg-2)}
+.learn li::before{content:"→";color:var(--acc);font-family:var(--mono)}
+.next-case{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding:48px 0;border-top:1px solid var(--line)}
+.next-case .nm{font:700 clamp(36px,6vw,88px)/1 var(--display);letter-spacing:-.03em;transition:color .3s}
+.next-case:hover .nm{color:var(--acc)}
+.soon-box{padding:64px;border-radius:24px;border:1px dashed var(--line-2);display:flex;flex-direction:column;gap:20px;align-items:flex-start}
+/* prototype */
+.proto-wrap{display:flex;flex-wrap:wrap;gap:40px 80px;align-items:center}
+.proto-info{flex:1 1 300px;display:flex;flex-direction:column;gap:20px}
+.proto-info p{margin:0;font-size:17px;line-height:1.7;color:var(--fg-2)}
+.proto-stage{flex:2 1 560px;display:flex;justify-content:center}
+.device{position:relative;background:#141416;border:1px solid var(--line-2);box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 0 1px rgba(200,255,77,.06)}
+.device.mobile{width:min(100%,390px);aspect-ratio:390/844;border-radius:52px;padding:12px}
+.device.mobile::before{content:"";position:absolute;top:22px;left:50%;width:110px;height:30px;margin-left:-55px;border-radius:999px;background:#050506;z-index:3}
+.device.desktop{width:100%;max-width:1000px;border-radius:16px;padding:0 0 0;overflow:hidden}
+.device.desktop .bar{height:38px;display:flex;align-items:center;gap:8px;padding:0 16px;border-bottom:1px solid var(--line-2);background:#18181B}
+.device.desktop .bar i{width:11px;height:11px;border-radius:50%;background:#2E2E33}
+.device.desktop .bar span{margin-left:12px;font:400 11px var(--mono);color:var(--fg-4)}
+.device .screen{position:relative;width:100%;height:100%;border-radius:40px;overflow:hidden;background:#0B0B0C}
+.device.desktop .screen{border-radius:0;aspect-ratio:16/10;height:auto}
+.device iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#0B0B0C}
+.poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:24px}
+.poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(6px) brightness(.45);transform:scale(1.08)}
+.poster>*:not(img){position:relative}
+.play{width:84px;height:84px;border-radius:50%;background:var(--acc);color:var(--acc-ink);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 0 rgba(200,255,77,.5);animation:pulse 1.8s infinite;transition:transform .3s var(--ease)}
+.poster:hover .play{transform:scale(1.1)}
+.play svg{width:30px;height:30px;margin-left:4px}
+.poster b{font:700 20px var(--display)}
+.poster small{font:400 12px var(--mono);color:var(--fg-3);max-width:280px}
+.proto-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:400 12px var(--mono);color:var(--fg-3)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  #noise{animation:none}
+  .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div id="scan" aria-hidden="true"></div>
+<div id="noise" aria-hidden="true"></div>
+<div class="cur-dot" aria-hidden="true"></div>
+<div class="cur-ring" aria-hidden="true"><span></span></div>
+<div id="curtain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"></div>
+
+<a class="sr" href="#app">Pular para o conteúdo</a>
+<header class="site">
+  <a class="logo lift" href="#inicio">NATHAN RICARTE</a>
+  <nav class="nav" id="nav" aria-label="Principal">
+    <a class="lift" href="#ux" data-k="nav.ux">/ux</a>
+    <a class="lift" href="#fotografia" data-k="nav.photo">/fotografia</a>
+    <a class="lift" href="#sobre" data-k="nav.about">/sobre</a>
+    <a class="lift" href="#contato" data-k="nav.contact">/contato</a>
+    <a class="lift cv-link" href="cv/cv-nathan-ricarte-pt.pdf" target="_blank" rel="noopener" data-k="nav.cv">/currículo ↓</a>
+  </nav>
+  <div class="head-right">
+    <div class="status"><i></i><span data-k="status"></span></div>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="app" tabindex="-1"></main>
+
+<footer class="site"><div class="wrap"><span>© 2026 Nathan Ricarte</span><span data-k="footer.place"></span><a class="lift" href="#inicio" data-k="footer.top"></a></div></footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Foto ampliada">
+  <button class="ctl close" type="button" aria-label="Fechar" data-cursor=""><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <button class="ctl prev" type="button" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+  <figure id="lb-fig"></figure>
+  <button class="ctl next" type="button" aria-label="Próxima"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* =========================================================
+   CONTEÚDO · edite aqui. Tudo que está entre [colchetes]
+   é espaço reservado esperando a informação real.
+   ========================================================= */
+const CONTACT = {
+  email: 'Nathanricarte@gmail.com',
+  instagram: 'https://www.instagram.com/nathanricarte.raw',
+  instagramHandle: '@nathanricarte.raw',
+  linkedin: 'https://www.linkedin.com/in/nathanricarte/',
+  whatsapp: '5585991964086',  // (85) 99196-4086
+  cv: { pt: 'cv/cv-nathan-ricarte-pt.pdf', en: 'cv/cv-nathan-ricarte-en.pdf' }  // currículo em PDF, um por idioma
+};
+
+/* Fotos: troque src:null pelo caminho da foto (ex.: 'img/fotos/show-01.jpg').
+   size: '' | 'w2' (larga) | 'h2r' (alta) | 'w2 h2r' (grande) */
+const PHOTOS = [
+  {src:null,cat:'moda',size:'w2 h2r',place:'[LOCAL, ANO]'},
+  {src:null,cat:'ensaios',size:'',place:'[LOCAL, ANO]'},
+  {src:null,cat:'moda',size:'h2r',place:'[LOCAL, ANO]'},
+  {src:null,cat:'eventos',size:'',place:'[LOCAL, ANO]'},
+  {src:null,cat:'moda',size:'h2r',place:'[LOCAL, ANO]'},
+  {src:null,cat:'ensaios',size:'',place:'[LOCAL, ANO]'},
+  {src:null,cat:'moda',size:'w2',place:'[LOCAL, ANO]'},
+  {src:null,cat:'eventos',size:'',place:'[LOCAL, ANO]'},
+  {src:null,cat:'moda',size:'',place:'[LOCAL, ANO]'},
+  {src:null,cat:'ensaios',size:'w2 h2r',place:'[LOCAL, ANO]'},
+  {src:null,cat:'moda',size:'',place:'[LOCAL, ANO]'},
+  {src:null,cat:'ensaios',size:'h2r',place:'[LOCAL, ANO]'},
+  {src:null,cat:'eventos',size:'',place:'[LOCAL, ANO]'},
+  {src:null,cat:'moda',size:'',place:'[LOCAL, ANO]'}
+];
+const PHOTO_CATS = ['todos','moda','ensaios','eventos'];
+
+/* Projetos (ordem = ordem no site). kind: work | study | soon
+   proto: link do protótipo do Figma (botão ▶ Present → Share → Copy link).
+   device: 'mobile' (moldura de celular) ou 'desktop' (moldura de navegador).
+   Sem link, a área do protótipo não aparece para o visitante. */
+const PROJECTS = [
+ {id:'helper',kind:'work',nda:true,cover:'img/helper-nda.jpg',
+  pt:{name:'Helper',badge:'Trabalho real',tag:'FIOCRUZ CEARÁ · UX/UI',short:'Nova interface para um assistente de laboratório que automatiza a análise de exames de RT-PCR.',
+      what:'Assistente laboratorial · Fiocruz Ceará',meta:'UX/UI DESIGNER · 6 MESES',
+      sub:'Redesenho da interface do Helper, software da Fiocruz Ceará que automatiza a análise e a liberação de resultados de exames de RT-PCR.',
+      metas:[['Cliente','Fiocruz Ceará'],['Papel','UX/UI Designer'],['Duração','6 meses'],['Ferramenta','Figma']],
+      problem:'Em muitos laboratórios, interpretar, conferir e cadastrar resultados de RT-PCR ainda é um trabalho manual, que leva horas e abre espaço para erro humano. O Helper nasceu para resolver isso. O desafio de design era fazer um sistema técnico e cheio de regras parecer simples para quem trabalha sob pressão.',
+      context:'O Helper foi criado na Fiocruz Ceará durante a pandemia de COVID-19. Ele lê os arquivos gerados pelos equipamentos de PCR e entrega os resultados analisados em cerca de 3 minutos, para lotes de até 384 amostras, com concordância praticamente total com a conferência manual. Também cadastra e pré-libera resultados no GAL, o sistema do Ministério da Saúde, em menos de 30 segundos, uma tarefa que manualmente podia levar mais de 4 horas. Fui recrutado para atuar por 6 meses como UX/UI Designer junto ao time de desenvolvimento, desenhando a nova interface do sistema.',
+      steps:[['Imersão','Entender a rotina do laboratório: da triagem da amostra à liberação do resultado.'],['Arquitetura','Organizar o sistema em módulos claros, seguindo a ordem real do trabalho no laboratório.'],['Style guide','Criar a base visual e os componentes para manter a consistência em dezenas de telas.'],['Telas e validação','Desenhar as telas em alta fidelidade e iterar com os desenvolvedores, ajustando a interface às regras de negócio.']],
+      feats:[['Fluxo do laboratório','Etapas organizadas na ordem do trabalho real, da entrada da amostra à liberação do resultado.',null],['Análise e conferência','Resultados interpretados automaticamente, com conferência e aprovação do analista antes da liberação.',null],['Integração com o GAL','Envio e pré-liberação de resultados no sistema do Ministério da Saúde.',null],['Base visual','Style guide e componentes para manter dezenas de telas consistentes.',null]],
+      learn:['Desenhar para usuários técnicos exige entender o processo antes de pensar no visual.','Em um sistema de saúde, clareza não é estética: um rótulo confuso pode atrasar a liberação de um exame.','Conversar com os desenvolvedores cedo evita retrabalho, porque regras de negócio mudam a interface.']},
+  en:{name:'Helper',badge:'Real work',tag:'FIOCRUZ CEARÁ · UX/UI',short:'A new interface for a lab assistant that automates the analysis of RT-PCR tests.',
+      what:'Lab assistant software · Fiocruz Ceará',meta:'UX/UI DESIGNER · 6 MONTHS',
+      sub:'Interface redesign for Helper, software from Fiocruz Ceará that automates the analysis and release of RT-PCR test results.',
+      metas:[['Client','Fiocruz Ceará'],['Role','UX/UI Designer'],['Duration','6 months'],['Tool','Figma']],
+      problem:'In many labs, interpreting, checking and registering RT-PCR results is still manual work that takes hours and leaves room for human error. Helper was built to solve that. The design challenge was making a technical, rule-heavy system feel simple for people working under pressure.',
+      context:'Helper was created at Fiocruz Ceará during the COVID-19 pandemic. It reads the files exported by PCR equipment and delivers analyzed results in about 3 minutes for batches of up to 384 samples, with near-total agreement with manual checking. It also registers and pre-releases results in GAL, the Brazilian Ministry of Health system, in under 30 seconds, a task that could take more than 4 hours by hand. I was recruited to work for 6 months as a UX/UI Designer alongside the development team, designing the system\'s new interface.',
+      steps:[['Immersion','Understanding the lab routine: from sample screening to result release.'],['Architecture','Organizing the system into clear modules that follow the real order of lab work.'],['Style guide','Building the visual foundation and components to keep dozens of screens consistent.'],['Screens & validation','Designing high-fidelity screens and iterating with developers to fit the interface to business rules.']],
+      feats:[['Lab workflow','Steps organized in the real order of work, from sample intake to result release.',null],['Analysis & review','Automatically interpreted results, reviewed and approved by an analyst before release.',null],['GAL integration','Submitting and pre-releasing results in the Ministry of Health system.',null],['Visual foundation','A style guide and components to keep dozens of screens consistent.',null]],
+      learn:['Designing for technical users means understanding the process before thinking about visuals.','In a health system, clarity is not aesthetics: a confusing label can delay a test result.','Talking to developers early avoids rework, because business rules shape the interface.']}},
+ {id:'medly',kind:'work',nda:true,cover:'img/medly-nda.jpg',device:'desktop',proto:'',
+  pt:{name:'Medly',badge:'Pausado',tag:'PRODUTO · WEB + MOBILE',short:'Plataforma para encontrar profissionais de saúde, comparar opções e agendar consultas.',
+      what:'Busca e agendamento de profissionais de saúde',meta:'PRODUTO · WEB + MOBILE',
+      sub:'Uma plataforma para encontrar o profissional de saúde certo, comparar preço, convênio e distância, e agendar a consulta em poucos cliques.',
+      metas:[['Tipo','Projeto de produto'],['Papel','UX/UI Designer'],['Plataforma','Web + Mobile'],['Status','Pausado']],
+      problem:'Marcar uma consulta ainda costuma envolver ligações, sites diferentes e pouca transparência. O paciente não sabe de antemão quem atende o seu convênio, quanto custa a consulta ou quando há horário livre. O Medly reúne essas informações em um só lugar para que a decisão seja rápida e segura.',
+      context:'O Medly é um projeto de produto, hoje pausado. Para definir o escopo, estudei como funcionam as principais plataformas de busca e agendamento de saúde: busca por especialidade e localização, filtros, perfil detalhado do profissional e agenda online. A partir disso, desenhei uma experiência com dois lados: o paciente, que busca e agenda, e o profissional de saúde, que se cadastra para receber novos pacientes.',
+      steps:[['Pesquisa de mercado','Análise das plataformas de agendamento existentes: fluxos, filtros e informações que mais pesam na decisão.'],['Design system','Cores, tipografia e componentes base do produto.'],['Telas de baixa','Wireframes para definir estrutura e fluxo antes do visual.'],['Telas de alta','Interface final em desktop e mobile, pronta para protótipo.']],
+      feats:[['Busca na língua do paciente','Especialidade, local, teleconsulta, valor, convênio e disponibilidade em filtros fáceis de remover.',null],['Lista e mapa lado a lado','Resultados próximos, com raio de busca ajustável e ordenação por relevância.',null],['Perfil e horários','Experiência, valor da consulta, formas de atendimento e horários livres antes de agendar.',null],['Área do profissional','Cadastro para profissionais de saúde que querem ser encontrados por novos pacientes.',null]],
+      learn:['Em produtos de saúde, transparência de preço e disponibilidade pesa tanto quanto a qualidade do profissional.','Próximos passos: testes de usabilidade com pacientes, fluxo completo de agendamento e confirmação, e a área do profissional.']},
+  en:{name:'Medly',badge:'Paused',tag:'PRODUCT · WEB + MOBILE',short:'A platform to find healthcare professionals, compare options and book appointments.',
+      what:'Finding and booking healthcare professionals',meta:'PRODUCT · WEB + MOBILE',
+      sub:'A platform to find the right healthcare professional, compare price, insurance and distance, and book in a few clicks.',
+      metas:[['Type','Product project'],['Role','UX/UI Designer'],['Platform','Web + Mobile'],['Status','Paused']],
+      problem:'Booking a doctor still often means phone calls, different websites and little transparency. Patients don\'t know upfront who accepts their insurance, how much a visit costs or when there\'s an open slot. Medly brings this information together so the decision is fast and confident.',
+      context:'Medly is a product project, currently paused. To define its scope, I studied how the main healthcare search and booking platforms work: search by specialty and location, filters, detailed professional profiles and online scheduling. From there, I designed a two-sided experience: patients who search and book, and healthcare professionals who sign up to receive new patients.',
+      steps:[['Market research','Analyzing existing booking platforms: flows, filters and the information that matters most in the decision.'],['Design system','Colors, type and base components.'],['Wireframes','Low-fidelity screens to define structure and flow.'],['High fidelity','Final desktop and mobile UI, ready to prototype.']],
+      feats:[['Search in the patient\'s language','Specialty, location, telehealth, price, insurance and availability as easy-to-remove filters.',null],['List and map side by side','Nearby results with an adjustable radius and relevance sorting.',null],['Profile and open slots','Experience, price, visit types and available times before booking.',null],['Professional area','Sign-up for healthcare professionals who want to reach new patients.',null]],
+      learn:['In healthcare products, price and availability transparency matter as much as the professional\'s credentials.','Next steps: usability tests with patients, a complete booking and confirmation flow, and the professional area.']}},
+ {id:'egames',kind:'study',cover:'img/egames-cover3.jpg',device:'mobile',proto:'https://www.figma.com/proto/n0NW3QGOyUpKjzTIkuwUE2/projeto_UiStart?node-id=32-4018&starting-point-node-id=32%3A4018&page-id=1%3A4',figma:'https://www.figma.com/design/n0NW3QGOyUpKjzTIkuwUE2/projeto_UiStart?node-id=340-7191',
+  pt:{name:'eGames',badge:'★ Case de estudo',tag:'CURSO UISTART · APP + DESKTOP',short:'Comunidade para gamers: feed, games, campeonatos, chat e perfil, no app e na versão desktop.',
+      what:'App e site para a comunidade gamer',meta:'CURSO UISTART · APP + DESKTOP',
+      sub:'Um app para reunir jogadores em um só lugar: novidades, lançamentos, campeonatos, conversas e perfil com conquistas.',
+      metas:[['Tipo','Case de estudo'],['Origem','Curso uiStart · 2023'],['Plataforma','App mobile + Desktop'],['Entregas','Wireframes, UI, assets, protótipo']],
+      problem:'Quem joga costuma se dividir entre vários apps: um para conversar, outro para acompanhar lançamentos, outro para ver campeonatos. O desafio do eGames era juntar tudo isso em uma comunidade só, com uma interface que tivesse a energia do universo gamer sem perder a clareza.',
+      context:'Projeto desenvolvido no uiStart, curso de UI Design criado por Lucas Assis e Tiago Luchtenberg como porta de entrada para a área. O curso tinha uma proposta prática e direta ao ponto, e o eGames foi o projeto em que apliquei os fundamentos de interface do briefing até a tela final.',
+      steps:[['Briefing e referências','Análise de apps de comunidade e moodboard para a identidade escura, roxa e rosa.'],['Assets e marca','Logo, ícones e elementos visuais da marca eGames.'],['Wireframes','Estrutura dos fluxos de autenticação e navegação antes do visual.'],['UI e protótipo','Telas em alta fidelidade e protótipo navegável, com barra de navegação fixa.']],
+      feats:[['Onboarding e cadastro','Três telas de apresentação e fluxos de login e cadastro em etapas.','img/egames-cover.jpg'],['Feed e games','Posts da comunidade, filtros por gênero, lançamentos, populares e campeonatos.',null],['Busca, chat e perfil','Pesquisa de jogadores, games e campeonatos, conversas e perfil com nível e XP.',null]],
+      learn:['Foi aqui que aprendi a construir um app inteiro com consistência: mesma grade, mesmos componentes, mesma linguagem visual.','Protótipo bom é protótipo navegável: barra fixa, rolagem e caminhos de volta fazem a experiência parecer real.']},
+  en:{name:'eGames',badge:'★ Study case',tag:'UISTART COURSE · APP + DESKTOP',short:'A gaming community: feed, games, tournaments, chat and profile, on mobile and desktop.',
+      what:'App and website for the gaming community',meta:'UISTART COURSE · APP + DESKTOP',
+      sub:'An app that brings players together: news, releases, tournaments, conversations and a profile with achievements.',
+      metas:[['Type','Study case'],['Origin','uiStart course · 2023'],['Platform','Mobile app + Desktop'],['Deliverables','Wireframes, UI, assets, prototype']],
+      problem:'Gamers usually split their time across several apps: one to chat, another to follow releases, another for tournaments. The eGames challenge was bringing it all into one community, with an interface that has the energy of gaming culture without losing clarity.',
+      context:'Built during uiStart, a UI Design course created by Lucas Assis and Tiago Luchtenberg as an entry point into the field. The course was practical and straight to the point, and eGames was the project where I applied interface fundamentals from brief to final screen.',
+      steps:[['Brief & references','Analysis of community apps and a moodboard for the dark, purple and pink identity.'],['Assets & brand','Logo, icons and visual elements for the eGames brand.'],['Wireframes','Structure of authentication and navigation flows before visuals.'],['UI & prototype','High-fidelity screens and a clickable prototype with a fixed navigation bar.']],
+      feats:[['Onboarding & sign-up','Three intro screens plus login and multi-step sign-up flows.','img/egames-cover.jpg'],['Feed & games','Community posts, genre filters, releases, popular games and tournaments.',null],['Search, chat & profile','Searching players, games and tournaments, conversations and a profile with level and XP.',null]],
+      learn:['This is where I learned to build an entire app consistently: same grid, same components, same visual language.','A good prototype is a navigable one: a fixed bar, scrolling and ways back make the experience feel real.']}},
+ {id:'crypto',kind:'study',cover:'img/crypto-cover3.jpg',device:'mobile',proto:'https://www.figma.com/proto/rDaIiZEzeZQMHkcHNToaA1/Curso-de-Figma--FEAUX----Nathan-R.?node-id=216-534&starting-point-node-id=656%3A1221&page-id=213%3A477',figma:'https://www.figma.com/design/rDaIiZEzeZQMHkcHNToaA1/Curso-de-Figma--FEAUX----Nathan-R.?node-id=698-2379',
+  pt:{name:'Crypto',badge:'★ Case de estudo',tag:'CURSO DE FIGMA · APP MOBILE',short:'Marketplace e rede social de NFTs, entregue com style guide, protótipo animado e handoff.',
+      what:'Marketplace e rede social de NFTs',meta:'CURSO DE FIGMA · STYLE GUIDE + PROTÓTIPO',
+      sub:'Um app para descobrir, comprar e acompanhar artistas de NFT, desenhado do conceito ao handoff para desenvolvimento.',
+      metas:[['Tipo','Case de estudo'],['Origem','Curso de Figma · 2024'],['Plataforma','Mobile (iOS)'],['Entregas','Style guide, telas, protótipo, handoff']],
+      problem:'Marketplaces de NFT costumam ser confusos para quem não é do meio: muitos dados, termos técnicos e pouca hierarquia. A proposta do Crypto foi tratar a compra e venda como uma rede social, com artistas, coleções e ranking em primeiro plano.',
+      context:'Projeto principal do Curso de Figma de Felipe Santana, que simula o fluxo real de um designer de produto: do briefing à entrega para o time de desenvolvimento. Defini conceito, tema, grids e style guide, desenhei as telas, montei o protótipo com Smart Animate e preparei o arquivo para o handoff.',
+      steps:[['Conceito e style guide','Tema, grids, cores, tipografia, ícones e componentes com variantes e Auto Layout.'],['Arquitetura','Busca por categorias, ranking de criadores, perfil e detalhe do NFT.'],['Telas de alta','Interface escura com gradientes roxos e cards de destaque.'],['Protótipo e handoff','Transições com Smart Animate, especificações e assets organizados para os devs.']],
+      feats:[['Busca por categorias','Filtros como 3D, Ilustração, GIFs e Animação para explorar coleções.','img/crypto-cover.jpg'],['Ranking de criadores','Os artistas em alta, com volume e destaque visual.',null],['Perfil e detalhe do NFT','Coleção do artista, dono atual e preço em ETH antes da compra.',null]],
+      learn:['Componentes com variantes e Auto Layout aceleram o projeto e deixam o arquivo pronto para crescer.','Pensar no handoff desde o início muda como organizo camadas, nomes e estilos.']},
+  en:{name:'Crypto',badge:'★ Study case',tag:'FIGMA COURSE · MOBILE APP',short:'An NFT marketplace and social network, delivered with a style guide, animated prototype and handoff.',
+      what:'NFT marketplace and social network',meta:'FIGMA COURSE · STYLE GUIDE + PROTOTYPE',
+      sub:'An app to discover, buy and follow NFT artists, designed from concept to developer handoff.',
+      metas:[['Type','Study case'],['Origin','Figma course · 2024'],['Platform','Mobile (iOS)'],['Deliverables','Style guide, screens, prototype, handoff']],
+      problem:'NFT marketplaces are often confusing for newcomers: lots of data, technical jargon and weak hierarchy. Crypto treats buying and selling like a social network, with artists, collections and rankings up front.',
+      context:'The main project of Felipe Santana\'s Figma course, which simulates a product designer\'s real workflow: from brief to developer handoff. I defined the concept, theme, grids and style guide, designed the screens, built the prototype with Smart Animate and prepared the file for handoff.',
+      steps:[['Concept & style guide','Theme, grids, colors, type, icons and components with variants and Auto Layout.'],['Architecture','Category search, creator ranking, profile and NFT details.'],['High fidelity','A dark interface with purple gradients and featured cards.'],['Prototype & handoff','Smart Animate transitions, specs and assets organized for developers.']],
+      feats:[['Category search','Filters like 3D, Illustration, GIFs and Animation to explore collections.','img/crypto-cover.jpg'],['Creator ranking','Trending artists, with volume and visual emphasis.',null],['Profile & NFT details','The artist\'s collection, current owner and ETH price before buying.',null]],
+      learn:['Components with variants and Auto Layout speed up the project and keep the file ready to grow.','Thinking about handoff from the start changes how I organize layers, names and styles.']}},
+ {id:'nasa',kind:'study',featured:false,cover:'img/nasa.jpg',device:'desktop',proto:'',figma:'https://www.figma.com/design/lKtwjk7oenRQybLNbR9hjZ/Nasa_Vortex',
+  pt:{name:'NASA',badge:'★ Case de estudo',tag:'SELETIVO VORTEX 2022 · WEB + MOBILE',short:'Redesign conceitual do portal da NASA: feed, galerias, NASA TV e login, na web e no celular.',
+      what:'Redesign conceitual do portal da NASA',meta:'SELETIVO VORTEX 2022 · WEB + MOBILE',
+      sub:'Redesign conceitual do portal da NASA, para deixar notícias, imagens e transmissões mais fáceis de encontrar. Feito para o processo seletivo de estágio do VORTEX, sem vínculo com a NASA.',
+      metas:[['Tipo','Case de estudo'],['Origem','Seletivo de estágio VORTEX · Unifor'],['Ano','2022'],['Plataforma','Web + Mobile']],
+      problem:'O portal da NASA reúne uma quantidade enorme de conteúdo, e notícias, galerias e transmissões acabam competindo entre si. Para o seletivo, propus uma navegação mais direta, com o conteúdo visual em destaque, nas versões web e mobile.',
+      context:'O VORTEX é o laboratório de pesquisa, desenvolvimento e inovação em tecnologia da Unifor. Em 2022, este redesign foi meu projeto para o processo seletivo de estágio do laboratório e também meu primeiro projeto completo de UX/UI, feito sozinho, das telas de baixa até a interface final.',
+      steps:[['Análise do original','Levantamento dos pontos de atrito na navegação do portal.'],['Arquitetura','Organização do conteúdo em Feed, Galerias e NASA TV.'],['Telas de baixa','Wireframes da web e do mobile para validar a estrutura.'],['Telas de alta','Interface escura, com as imagens espaciais em destaque.']],
+      feats:[['Feed de notícias','Destaques, eventos da semana e histórias em cards.','img/nasa.jpg'],['Galerias de imagens','Coleções como James Webb, Human Construction e Historical Images.',null],['NASA TV','Vídeos, chat da transmissão e programação semanal.',null]],
+      learn:['Foi aqui que aprendi a levar um projeto do wireframe até a tela final com consistência.','Começar pelo conteúdo, e não pelo visual, deixou a navegação mais simples.']},
+  en:{name:'NASA',badge:'★ Study case',tag:'VORTEX SELECTION 2022 · WEB + MOBILE',short:'A concept redesign of the NASA portal: feed, galleries, NASA TV and login, on web and mobile.',
+      what:'Concept redesign of the NASA portal',meta:'VORTEX SELECTION 2022 · WEB + MOBILE',
+      sub:'A concept redesign of the NASA portal, making news, images and broadcasts easier to find. Made for the VORTEX internship selection process, not affiliated with NASA.',
+      metas:[['Type','Study case'],['Origin','VORTEX internship selection · Unifor'],['Year','2022'],['Platform','Web + Mobile']],
+      problem:'The NASA portal holds a huge amount of content, and news, galleries and broadcasts end up competing with each other. For the selection process, I proposed a more direct navigation that puts visual content first, on web and mobile.',
+      context:'VORTEX is Unifor\'s research, development and innovation lab in technology. In 2022, this redesign was my project for the lab\'s internship selection process and also my first complete UX/UI project, done solo from wireframes to the final interface.',
+      steps:[['Original audit','Mapping friction points in the portal navigation.'],['Architecture','Organizing content into Feed, Galleries and NASA TV.'],['Wireframes','Web and mobile wireframes to validate the structure.'],['High fidelity','A dark interface that puts space imagery first.']],
+      feats:[['News feed','Highlights, weekly events and story cards.','img/nasa.jpg'],['Image galleries','Collections like James Webb, Human Construction and Historical Images.',null],['NASA TV','Videos, broadcast chat and weekly schedule.',null]],
+      learn:['This is where I learned to take a project from wireframe to final screen consistently.','Starting from the content, not the visuals, made the navigation simpler.']}},
+ {id:'tcc',kind:'soon',cover:null,
+  pt:{name:'TCC · Unifor Online',badge:'Em breve',tag:'PESQUISA · ACESSIBILIDADE',short:'Diagnóstico de acessibilidade cognitiva e usabilidade da plataforma Unifor Online.',
+      what:'Diagnóstico de acessibilidade cognitiva e usabilidade',meta:'PESQUISA · ACESSIBILIDADE',
+      sub:'Diagnóstico de acessibilidade cognitiva e usabilidade da plataforma Unifor Online.'},
+  en:{name:'Thesis · Unifor Online',badge:'Coming soon',tag:'RESEARCH · ACCESSIBILITY',short:'A cognitive accessibility and usability assessment of the Unifor Online platform.',
+      what:'Cognitive accessibility & usability assessment',meta:'RESEARCH · ACCESSIBILITY',
+      sub:'A cognitive accessibility and usability assessment of the Unifor Online platform.'}}
+];
+const STUDIES = []; /* estudos agora ficam na lista principal de cases */
+
+/* Formação e certificados · complete os [colchetes]. link: URL do certificado (opcional) */
+const EDU = [
+ {pt:['Bacharelado em Design','Unifor','2023.1 a 2027.1 (previsão de conclusão)'],en:['B.A. in Design','Unifor','2023 to 2027 (expected graduation)'],link:''},
+ {pt:['uiStart · UI Design','Lucas Assis & Tiago Luchtenberg','18 h · 2023'],en:['uiStart · UI Design','Lucas Assis & Tiago Luchtenberg','18 h · 2023'],link:'cert/certificado-uistart.pdf'},
+ {pt:['Curso de Figma','Felipe Santana','15 h · 2024'],en:['Figma Course','Felipe Santana','15 h · 2024'],link:'cert/certificado-curso-figma.pdf'}
+];
+
+/* Textos fixos da interface */
+const T = {
+ pt:{
+  'nav.cv':'/currículo ↓','nav.ux':'/ux','nav.photo':'/fotografia','nav.about':'/sobre','nav.contact':'/contato',
+  status:'Disponível para projetos','footer.place':'Fortaleza, CE · Brasil','footer.top':'voltar ao topo ↑',
+  'hero.kicker':'// Fortaleza, CE · Design @ Unifor','hero.l1':'UX DESIGNER','hero.l2':'& FOTÓGRAFO',
+  'hero.p':'UX designer focado em pesquisa, usabilidade e acessibilidade. Transformo necessidades reais das pessoas em experiências digitais claras e intuitivas. Na fotografia, levo o mesmo olhar para a moda.',
+  'hero.cta':'Ver projetos',
+  'p1.k':'/01 · UX','p1.t':'Experiências que fazem sentido.','p1.d':'Pesquisa, processo e cases de produto digital.',
+  'p2.k':'/02 · FOTOGRAFIA','p2.t':'Através das lentes.','p2.d':'Moda street e ensaios autorais · @nathanricarte.raw',
+  marquee:['UX DESIGN','UI DESIGN','PESQUISA','PROTOTIPAÇÃO','DESIGN SYSTEMS','FOTOGRAFIA'],
+  'feat.h':'/Trabalhos em destaque','feat.all':'ver todos →','photo.h':'/Fotografia','photo.all':'abrir galeria →',
+  'about.h':'/Sobre mim','about.photo':'[SUA FOTO]',
+  'about.lead':'Sou Nathan Ricarte, designer em formação baseado em Fortaleza. Meu foco é UX: entender as pessoas, investigar problemas e transformar isso em experiências digitais intuitivas e funcionais. Fora das telas, uso a câmera para registrar moda e estilo.',
+  'about.p':'Graduando em Design pela Unifor, com conclusão prevista para 2027, e com 6 meses de experiência como UX/UI Designer na Fiocruz Ceará. Gosto de pesquisa, de testar hipóteses e de desenvolver produtos digitais que façam sentido para quem usa.',
+  'about.now':'AGORA','about.nowt':'Finalizando meu TCC sobre acessibilidade cognitiva · aberto a oportunidades em UX',
+  facts:[['FORMAÇÃO','Graduando em Design · Unifor (2027)'],['EXPERIÊNCIA','UX/UI Designer · Fiocruz Ceará'],['FERRAMENTAS','Figma, Lightroom, Premiere Pro'],['FOTOGRAFIA','Moda street e ensaios autorais']],
+  'contact.k':'/contato','contact.big':'Vamos construir<br>algo juntos<span style="color:var(--acc)">.</span>',
+  'contact.copy':'Copiar e-mail','copied':'E-mail copiado ✓','pending':'Em breve',
+  'ux.h':'/UX','ux.p':'Cases com problema, processo e solução. Trabalhos reais e cases de estudo que mostram como eu penso e resolvo problemas de experiência.',
+  'ux.cv':'Currículo','studies.h':'/Estudos','studies.s':'onde tudo começou','edu.h':'/Formação & certificados','edu.s':'base acadêmica e cursos','edu.see':'ver certificado ↗','figma':'Abrir no Figma ↗',
+  'case.problem':'/01 · o problema','case.context':'/02 · contexto e papel','case.process':'/03 · o processo','case.solution':'/04 · a solução','case.learn':'/05 · aprendizados',
+  'case.next':'próximo case','case.back':'← todos os cases','case.of':'case',
+  'case.proto':'/protótipo · teste você mesmo','proto.t':'Navegue como se fosse o app de verdade.','proto.p':'Este é o protótipo interativo feito no Figma. Clique nos botões, abra telas e percorra o fluxo principal.','proto.play':'Testar protótipo','proto.hint':'carrega o Figma aqui mesmo','proto.full':'Abrir em tela cheia ↗','proto.loading':'carregando protótipo…','proto.preview':'Na pré-visualização do Claude o protótipo abre em nova aba. No site publicado ele roda aqui dentro.','cur.test':'Testar',
+  'soon.t':'Este case está sendo escrito.','soon.p':'A pesquisa está em andamento. Assim que o TCC for concluído, o case completo aparece aqui.',
+  'ph.screen':'[TELA EM ALTA · ENVIAR EXPORT]','nda.note':'Projeto sob confidencialidade: telas e dados internos não são exibidos.',
+  'foto.h':'Através<br>das lentes<span style="color:var(--acc)">.</span>','foto.p':'Fotografia de moda street e ensaios autorais, com forte inspiração na fotografia de moda asiática: composição precisa, cores marcantes e atitude. O mesmo olhar atento que uso em UX, apontado para estilo e expressão.',
+  'foto.count':'fotos','foto.cta':'Tem um ensaio ou evento em mente? Vamos criar juntos.','foto.btn':'Pedir orçamento',
+  'foto.ph':'FOTO',cats:{todos:'Todos',moda:'Moda street',ensaios:'Ensaios autorais',eventos:'Eventos'},
+  'lb.close':'Fechar','lb.prev':'Anterior','lb.next':'Próxima',
+  'cur.view':'Ver case','cur.open':'Abrir','cur.enter':'Entrar','cur.zoom':'Ampliar',
+  title:'Nathan Ricarte | UX Designer & Fotógrafo'
+ },
+ en:{
+  'nav.cv':'/résumé ↓','nav.ux':'/ux','nav.photo':'/photography','nav.about':'/about','nav.contact':'/contact',
+  status:'Available for projects','footer.place':'Fortaleza, CE · Brazil','footer.top':'back to top ↑',
+  'hero.kicker':'// Fortaleza, Brazil · Design @ Unifor','hero.l1':'UX DESIGNER','hero.l2':'& PHOTOGRAPHER',
+  'hero.p':'UX designer focused on research, usability and accessibility. I turn people\'s real needs into clear, intuitive digital experiences. In photography, I bring the same eye to fashion.',
+  'hero.cta':'See projects',
+  'p1.k':'/01 · UX','p1.t':'Experiences that make sense.','p1.d':'Research, process and digital product case studies.',
+  'p2.k':'/02 · PHOTOGRAPHY','p2.t':'Through the lens.','p2.d':'Street fashion and editorial shoots · @nathanricarte.raw',
+  marquee:['UX DESIGN','UI DESIGN','RESEARCH','PROTOTYPING','DESIGN SYSTEMS','PHOTOGRAPHY'],
+  'feat.h':'/Featured work','feat.all':'see all →','photo.h':'/Photography','photo.all':'open gallery →',
+  'about.h':'/About me','about.photo':'[YOUR PHOTO]',
+  'about.lead':'I\'m Nathan Ricarte, a design student based in Fortaleza, Brazil. My focus is UX: understanding people, investigating problems and turning them into intuitive, functional digital experiences. Away from the screen, I use my camera to capture fashion and style.',
+  'about.p':'Design undergraduate at Unifor, graduating in 2027, with 6 months of experience as a UX/UI Designer at Fiocruz Ceará. I enjoy research, testing hypotheses and building digital products that make sense to the people who use them.',
+  'about.now':'NOW','about.nowt':'Wrapping up my thesis on cognitive accessibility · open to UX opportunities',
+  facts:[['EDUCATION','Design undergraduate · Unifor (2027)'],['EXPERIENCE','UX/UI Designer · Fiocruz Ceará'],['TOOLS','Figma, Lightroom, Premiere Pro'],['PHOTOGRAPHY','Street fashion & editorial']],
+  'contact.k':'/contact','contact.big':'Let\'s build<br>something together<span style="color:var(--acc)">.</span>',
+  'contact.copy':'Copy email','copied':'Email copied ✓','pending':'Coming soon',
+  'ux.h':'/UX','ux.p':'Case studies with problem, process and solution. Real work and study cases that show how I think through and solve experience problems.',
+  'ux.cv':'Résumé','studies.h':'/Studies','studies.s':'where it all started','edu.h':'/Education & certificates','edu.s':'academic background and courses','edu.see':'see certificate ↗','figma':'Open in Figma ↗',
+  'case.problem':'/01 · the problem','case.context':'/02 · context & role','case.process':'/03 · the process','case.solution':'/04 · the solution','case.learn':'/05 · takeaways',
+  'case.next':'next case','case.back':'← all cases','case.of':'case',
+  'case.proto':'/prototype · try it yourself','proto.t':'Use it like the real app.','proto.p':'This is the interactive prototype built in Figma. Tap buttons, open screens and walk through the main flow.','proto.play':'Try the prototype','proto.hint':'loads Figma right here','proto.full':'Open full screen ↗','proto.loading':'loading prototype…','proto.preview':'In the Claude preview the prototype opens in a new tab. On the published site it runs right here.','cur.test':'Try it',
+  'soon.t':'This case study is being written.','soon.p':'The research is in progress. Once the thesis is done, the full case will live here.',
+  'ph.screen':'[HIGH-RES SCREEN · SEND EXPORT]','nda.note':'Confidential project: screens and internal data are not shown.',
+  'foto.h':'Through<br>the lens<span style="color:var(--acc)">.</span>','foto.p':'Street fashion and editorial photography, strongly inspired by Asian fashion photography: precise composition, bold color and attitude. The same attentive eye I use in UX, pointed at style and expression.',
+  'foto.count':'photos','foto.cta':'Planning a shoot or an event? Let\'s create it together.','foto.btn':'Get a quote',
+  'foto.ph':'PHOTO',cats:{todos:'All',moda:'Street fashion',ensaios:'Editorial',eventos:'Events'},
+  'lb.close':'Close','lb.prev':'Previous','lb.next':'Next',
+  'cur.view':'View case','cur.open':'Open','cur.enter':'Enter','cur.zoom':'Zoom',
+  title:'Nathan Ricarte | UX Designer & Photographer'
+ }
+};
+
+/* =========================================================
+   APP
+   ========================================================= */
+let lang = 'pt';
+try { const s = localStorage.getItem('nr-lang'); if (s === 'en' || s === 'pt') lang = s; } catch (e) {}
+const t = (k) => (T[lang][k] !== undefined ? T[lang][k] : k);
+const L = (o) => o[lang];
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ARROW = '<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>';
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let photoCat = 'todos';
+/* Na pré-visualização do Claude, sites externos não podem ser incorporados: o protótipo abre em nova aba. */
+const CAN_EMBED = !/claude/i.test(location.hostname) && location.protocol !== 'file:';
+const caseIds = PROJECTS.map((p) => p.id);
+
+function badgeCls(kind){ return kind === 'study' ? 'badge study' : kind === 'soon' ? 'badge soon' : 'badge'; }
+function img(src, alt, label){ return src ? `<img src="${src}" alt="${esc(alt)}" loading="lazy">` : `<div class="ph" style="width:100%;height:100%;border:0">${esc(label || t('ph.screen'))}</div>`; }
+
+/* ---------- views ---------- */
+function vHome(){
+  const feat = PROJECTS.filter((p) => p.kind !== 'soon' && p.featured !== false).map((p) => { const d = L(p); return `
+   <a href="#${p.id}" class="card rv" data-cursor="${t('cur.view')}">
+     <div class="img">${img(p.cover, d.name)}</div>
+     <div class="meta"><div>
+       <span class="${badgeCls(p.kind)}">${esc(d.badge)}</span>
+       <span class="tag">${esc(d.tag)}</span>
+       <span class="name">${esc(d.name)}</span>
+       <span class="desc">${esc(d.short)}</span>
+     </div>${ARROW}</div>
+   </a>`; }).join('');
+  const prev = PHOTOS.slice(0, 4).map((ph, i) => tile(ph, i, ['w2 h2r','','h2r',''][i])).join('');
+  const mq = t('marquee').map((w) => `<span>${w}</span><b>✦</b>`).join('');
+  return `
+  <section class="hero">
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="glow" aria-hidden="true" style="left:55%;top:10%"></div>
+    <div class="scanline" aria-hidden="true"></div>
+    <div class="wrap" style="position:relative">
+      <p class="mono rv" style="margin:0 0 28px;font-size:13px;color:var(--fg-3)">${t('hero.kicker')}</p>
+      <h1><span class="split" style="display:block">${t('hero.l1')}</span><span class="stroke split" style="display:block">${t('hero.l2')}<span class="blink">_</span></span></h1>
+      <div class="hero-foot rv">
+        <p>${t('hero.p')}</p>
+        <a class="btn solid" href="#ux">${t('hero.cta')}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+      </div>
+    </div>
+  </section>
+  <section style="padding:0 var(--pad) 120px" aria-label="UX / Fotografia">
+    <div class="wrap panels rv">
+      <a href="#ux" class="panel" data-cursor="${t('cur.enter')}">
+        <img src="img/egames-cover3.jpg" alt="">
+        <div class="shade"></div>
+        <div class="txt"><span class="label">${t('p1.k')}</span><span class="big">${t('p1.t')}</span><span style="color:var(--fg-2)">${t('p1.d')}</span></div>
+      </a>
+      <a href="#fotografia" class="panel" data-cursor="${t('cur.enter')}">
+        <div class="mosaic" aria-hidden="true">${PHOTOS.slice(0, 6).map((p) => `<div>${p.src ? `<img src="${p.src}" alt="">` : ''}</div>`).join('')}</div>
+        <div class="shade"></div>
+        <div class="txt"><span class="label">${t('p2.k')}</span><span class="big">${t('p2.t')}</span><span style="color:var(--fg-2)">${t('p2.d')}</span></div>
+      </a>
+    </div>
+  </section>
+  <div class="marquee" aria-hidden="true"><div class="track">${mq}${mq}</div></div>
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="h2 rv">${t('feat.h')}</h2><a class="mono lift" href="#ux" style="font-size:14px">${t('feat.all')}</a></div>
+      <div class="cards">${feat}</div>
+    </div>
+  </section>
+  <section style="padding:0 var(--pad) 120px">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="h2 rv">${t('photo.h')}</h2><a class="mono lift" href="#fotografia" style="font-size:14px">${t('photo.all')}</a></div>
+      <div class="mosaic-grid rv">${prev}</div>
+    </div>
+  </section>
+  <section class="sec" id="sobre" style="border-top:1px solid var(--line)">
+    <div class="wrap about">
+      <div class="l"><h2 class="h2 rv">${t('about.h')}</h2><div class="rv" style="aspect-ratio:4/5;max-width:380px;border-radius:20px;overflow:hidden;border:1px solid var(--line)"><img src="img/nathan.jpg" alt="Nathan Ricarte" style="width:100%;height:100%;object-fit:cover"></div></div>
+      <div class="r">
+        <p class="lead rv">${t('about.lead')}</p>
+        <p class="rv">${t('about.p')}</p>
+        <div class="now rv"><b>● ${t('about.now')}</b><span>${t('about.nowt')}</span></div>
+        <div class="facts rv">${t('facts').map((f) => `<div class="fact"><span>${f[0]}</span><span>${f[1]}</span></div>`).join('')}</div>
+      </div>
+    </div>
+  </section>
+  ${contactSec()}`;
+}
+
+function cvHref(){ return CONTACT.cv[lang] || CONTACT.cv.pt; }
+function contactSec(){
+  const li = CONTACT.linkedin ? `<a class="btn" href="${CONTACT.linkedin}">LinkedIn ↗</a>` : `<span class="btn" style="opacity:.55">LinkedIn · ${t('pending')}</span>`;
+  const wa = CONTACT.whatsapp ? `<a class="btn" href="https://wa.me/${CONTACT.whatsapp}">WhatsApp ↗</a>` : `<span class="btn" style="opacity:.55">WhatsApp · ${t('pending')}</span>`;
+  return `
+  <section class="contact" id="contato">
+    <div class="glow" aria-hidden="true" style="left:-10%;bottom:-40%;animation-duration:18s"></div>
+    <div class="wrap" style="position:relative;display:flex;flex-direction:column;gap:56px">
+      <span class="mono" style="font-size:13px;color:var(--fg-3)">${t('contact.k')}</span>
+      <a class="big rv" href="mailto:${CONTACT.email}">${t('contact.big')}</a>
+      <div class="links rv">
+        <button class="btn solid" type="button" data-copy="${CONTACT.email}">${t('contact.copy')}</button>
+        <a class="btn" href="mailto:${CONTACT.email}">${CONTACT.email}</a>
+        <a class="btn" href="${CONTACT.instagram}">${CONTACT.instagramHandle} ↗</a>
+        ${li}${wa}
+        <a class="btn" href="${cvHref()}" target="_blank" rel="noopener">${t('ux.cv')} (PDF) ↓</a>
+      </div>
+    </div>
+  </section>`;
+}
+
+function vUX(){
+  const rows = PROJECTS.map((p, i) => { const d = L(p); return `
+   <a href="#${p.id}" class="row" data-cursor="${t('cur.open')}">
+     <span class="num">${String(i + 1).padStart(2, '0')}</span>
+     <span class="nm">${esc(d.name)}</span>
+     <span class="wh"><span>${esc(d.what)}</span><span>${esc(d.meta)}</span></span>
+     <span class="${badgeCls(p.kind)}">${esc(d.badge)}</span>
+     ${p.cover ? `<span class="thumb" aria-hidden="true"><img src="${p.cover}" alt=""></span>` : ''}
+   </a>`; }).join('');
+  const studies = STUDIES.map((s) => { const d = L(s); return `
+   <article class="study rv" data-cursor="${t('cur.zoom')}">
+     <div class="img"><img src="${s.cover}" alt="${esc(d.name)}" loading="lazy"></div>
+     <span class="mono" style="font-size:12px;color:var(--fg-3)">${esc(d.tag)}</span>
+     <b style="font:700 24px var(--display)">${esc(d.name)}</b>
+     <span style="font-size:15px;line-height:1.55;color:var(--fg-2)">${esc(d.desc)}</span>
+     ${s.figma ? `<a class="btn" href="${s.figma}" style="align-self:flex-start">${t('figma')}</a>` : ''}
+   </article>`; }).join('');
+  const edu = EDU.map((e) => { const d = L(e); return `
+   <div class="row rv" style="padding:28px 8px">
+     <span class="nm" style="font-size:clamp(22px,2.4vw,32px);flex:2 1 300px">${esc(d[0])}</span>
+     <span class="wh"><span>${esc(d[1])}</span><span>${esc(d[2])}</span></span>
+     ${e.link ? `<a class="mono lift" href="${e.link}" target="_blank" rel="noopener" style="font-size:12px">${t('edu.see')}</a>` : ''}
+   </div>`; }).join('');
+  const cv = `<a class="btn" href="${cvHref()}" target="_blank" rel="noopener">${t('ux.cv')} (PDF) ↓</a>`;
+  return `
+  <section class="hero" style="padding-bottom:72px">
+    <div class="grid-bg" aria-hidden="true" style="-webkit-mask-image:linear-gradient(#000,transparent);mask-image:linear-gradient(#000,transparent)"></div>
+    <div class="wrap" style="position:relative;display:flex;flex-wrap:wrap;gap:32px;align-items:flex-end;justify-content:space-between">
+      <h1 style="white-space:nowrap"><span class="split">${t('ux.h')}<span style="color:var(--acc)">.</span></span></h1>
+      <div class="rv" style="display:flex;flex-direction:column;gap:20px;max-width:440px;align-items:flex-start">
+        <p style="margin:0;font-size:18px;line-height:1.6;color:var(--fg-2)">${t('ux.p')}</p>${cv}
+      </div>
+    </div>
+  </section>
+  <section style="padding:0 var(--pad) 120px"><div class="wrap rows">${rows}</div></section>
+  ${STUDIES.length ? `<section style="padding:0 var(--pad) 140px">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="h2 rv">${t('studies.h')}</h2><span class="mono" style="font-size:13px;color:var(--fg-4)">${t('studies.s')}</span></div>
+      <div class="studies">${studies}</div>
+    </div>
+  </section>` : ''}
+  <section style="padding:0 var(--pad) 140px">
+    <div class="wrap">
+      <div class="sec-head"><h2 class="h2 rv">${t('edu.h')}</h2><span class="mono" style="font-size:13px;color:var(--fg-4)">${t('edu.s')}</span></div>
+      <div class="rows">${edu}</div>
+    </div>
+  </section>`;
+}
+
+function vCase(id){
+  const idx = PROJECTS.findIndex((p) => p.id === id);
+  const p = PROJECTS[idx], d = L(p);
+  const nx = PROJECTS[(idx + 1) % PROJECTS.length];
+  const head = `
+  <section class="case-hero">
+    <div class="wrap">
+      <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center">
+        <a class="mono lift" href="#ux" style="font-size:13px">${t('case.back')}</a>
+        <span class="mono" style="font-size:12px;color:var(--fg-4)">${t('case.of')} ${String(idx + 1).padStart(2,'0')}/${String(PROJECTS.length).padStart(2,'0')}</span>
+      </div>
+      <span class="${badgeCls(p.kind)} rv">${esc(d.badge)}</span>
+      <h1><span class="split">${esc(d.name)}</span></h1>
+      <p class="sub rv">${esc(d.sub)}</p>
+      ${p.figma ? `<a class="btn solid rv" href="${p.figma}" style="align-self:flex-start">${t('figma')}</a>` : ''}
+      ${d.metas ? `<div class="metas rv">${d.metas.map((m) => `<div><span>${esc(m[0])}</span><span>${esc(m[1])}</span></div>`).join('')}</div>` : ''}
+    </div>
+  </section>`;
+  const next = `
+  <section style="padding:0 var(--pad) 40px"><div class="wrap">
+    <a class="next-case" href="#${nx.id}" data-cursor="${t('cur.open')}"><span class="mono" style="font-size:13px;color:var(--fg-4)">${t('case.next')}</span><span class="nm">${esc(L(nx).name)} →</span></a>
+  </div></section>`;
+  if (p.kind === 'soon') {
+    return head + `<section style="padding:0 var(--pad) 120px"><div class="wrap"><div class="soon-box rv">
+      <span class="badge soon">${esc(d.badge)}</span>
+      <b style="font:700 clamp(28px,3.4vw,48px)/1.1 var(--display)">${t('soon.t')}</b>
+      <p style="margin:0;font-size:17px;line-height:1.7;color:var(--fg-2);max-width:640px">${t('soon.p')}</p>
+    </div></div></section>` + next;
+  }
+  const block = (k, inner) => `<section style="padding:0 var(--pad) 120px"><div class="wrap block"><div class="k"><span class="label">${t(k)}</span></div><div class="v">${inner}</div></div></section>`;
+  const proto = p.proto ? `
+  <section style="padding:0 var(--pad) 140px"><div class="wrap proto-wrap">
+    <div class="proto-info rv">
+      <span class="label">${t('case.proto')}</span>
+      <b style="font:700 clamp(28px,3.4vw,48px)/1.1 var(--display);letter-spacing:-.02em">${t('proto.t')}</b>
+      <p>${t('proto.p')}</p>
+      <a class="btn" href="${p.proto}" style="align-self:flex-start">${t('proto.full')}</a>
+      ${CAN_EMBED ? '' : `<span class="mono" style="font-size:11px;color:var(--fg-4)">${t('proto.preview')}</span>`}
+    </div>
+    <div class="proto-stage rv">
+      <div class="device ${p.device || 'mobile'}">
+        ${p.device === 'desktop' ? `<div class="bar"><i></i><i></i><i></i><span>${esc(d.name.toLowerCase())}.app</span></div>` : ''}
+        <div class="screen">
+          ${CAN_EMBED
+            ? `<button type="button" class="poster" data-proto="${p.id}" data-cursor="${t('cur.test')}">${p.cover ? `<img src="${p.cover}" alt="">` : ''}<span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></span><b>${t('proto.play')}</b><small>${t('proto.hint')}</small></button>`
+            : `<a class="poster" href="${p.proto}" data-cursor="${t('cur.test')}">${p.cover ? `<img src="${p.cover}" alt="">` : ''}<span class="play"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg></span><b>${t('proto.play')}</b><small>${t('proto.full')}</small></a>`}
+        </div>
+      </div>
+    </div>
+  </div></section>` : '';
+  return head + `
+  <section style="padding:0 var(--pad) 120px"><div class="wrap cover">${p.cover ? `<img src="${p.cover}" alt="${esc(d.name)}">` : `<div class="ph">${t('ph.screen')}</div>`}</div>${p.nda ? `<p class="wrap mono" style="margin-top:16px;font-size:12px;color:var(--fg-3)">${t('nda.note')}</p>` : ''}</section>
+  ${proto}
+  ${block('case.problem', `<p class="big rv">${esc(d.problem)}</p>`)}
+  ${block('case.context', `<p class="rv">${esc(d.context)}</p>`)}
+  <section style="padding:0 var(--pad) 120px"><div class="wrap" style="display:flex;flex-direction:column;gap:40px">
+    <span class="label">${t('case.process')}</span>
+    <div class="steps">${d.steps.map((s, i) => `<div class="step rv"><span>${String(i + 1).padStart(2,'0')}</span><b>${esc(s[0])}</b><p>${esc(s[1])}</p></div>`).join('')}</div>
+  </div></section>
+  <section style="padding:0 var(--pad) 120px"><div class="wrap" style="display:flex;flex-direction:column;gap:40px">
+    <span class="label">${t('case.solution')}</span>
+    <div class="feats">${d.feats.map((f) => `<div class="feat rv">${p.nda ? '' : f[2] ? `<div class="fimg"><img src="${f[2]}" alt="${esc(f[0])}" loading="lazy"></div>` : `<div class="ph">${t('ph.screen')}</div>`}<b>${esc(f[0])}</b><p>${esc(f[1])}</p></div>`).join('')}</div>
+  </div></section>
+  <section style="padding:0 var(--pad) 120px"><div class="wrap learn rv block">
+    <div class="k"><span class="label">${t('case.learn')}</span></div>
+    <div class="v"><ul>${d.learn.map((l) => `<li>${esc(l)}</li>`).join('')}</ul></div>
+  </div></section>` + next;
+}
+
+function tile(ph, i, size){
+  return `<figure class="tile ${size !== undefined ? size : ph.size}" data-i="${i}" data-cat="${ph.cat}" data-cursor="${t('cur.zoom')}" tabindex="0" role="button" aria-label="${t('foto.ph')} ${i + 1} · ${t('cats')[ph.cat]}">
+    ${ph.src ? `<img src="${ph.src}" alt="${t('cats')[ph.cat]} · ${esc(ph.place)}" loading="lazy">` : `<span class="phl">[${t('foto.ph')} ${String(i + 1).padStart(2,'0')}]</span>`}
+    <figcaption><span>${t('cats')[ph.cat]}</span><span>${esc(ph.place)}</span></figcaption>
+  </figure>`;
+}
+
+function vFoto(){
+  const chips = PHOTO_CATS.map((c) => { const n = c === 'todos' ? PHOTOS.length : PHOTOS.filter((p) => p.cat === c).length;
+    return `<button type="button" class="chip" data-cat="${c}" aria-pressed="${c === photoCat}">${t('cats')[c]}<small>${n}</small></button>`; }).join('');
+  return `
+  <section class="hero" style="padding-bottom:48px">
+    <div class="glow" aria-hidden="true" style="right:-10%;top:-20%"></div>
+    <div class="wrap" style="position:relative;display:flex;flex-wrap:wrap;gap:32px;align-items:flex-end;justify-content:space-between">
+      <h1 style="font-size:clamp(54px,10vw,150px)">${t('foto.h')}</h1>
+      <div class="rv" style="display:flex;flex-direction:column;gap:12px;max-width:380px">
+        <p style="margin:0;font-size:17px;line-height:1.6;color:var(--fg-2)">${t('foto.p')}</p>
+        <a class="mono lift" href="${CONTACT.instagram}" style="font-size:13px">${CONTACT.instagramHandle} ↗</a>
+      </div>
+    </div>
+  </section>
+  <section style="padding:0 var(--pad) 32px"><div class="wrap chips" role="group" aria-label="Categorias">${chips}<span class="mono" id="count" style="margin-left:auto;font-size:12px;color:var(--fg-4)"></span></div></section>
+  <section style="padding:0 var(--pad) 120px"><div class="wrap mosaic-grid" id="gallery">${PHOTOS.map((p, i) => tile(p, i)).join('')}</div></section>
+  <section style="padding:0 var(--pad) 96px"><div class="wrap rv" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;padding:48px;border-radius:24px;border:1px solid var(--line);background:var(--bg-2)">
+    <b style="font:700 clamp(28px,3.4vw,48px)/1.1 var(--display);letter-spacing:-.02em">${t('foto.cta')}</b>
+    <a class="btn solid" href="#contato">${t('foto.btn')}</a>
+  </div></section>`;
+}
+
+/* ---------- router ---------- */
+const ROUTES = ['inicio','ux','fotografia','sobre','contato'].concat(caseIds);
+let current = null;
+function routeOf(){ const h = (location.hash || '').replace('#',''); return ROUTES.includes(h) ? h : 'inicio'; }
+function viewFor(r){ if (r === 'ux') return ['ux', vUX()]; if (r === 'fotografia') return ['fotografia', vFoto()]; if (caseIds.includes(r)) return ['case-' + r, vCase(r)]; return ['home', vHome()]; }
+
+function render(scrollTarget){
+  const r = routeOf();
+  const [key, html] = viewFor(r);
+  const app = $('#app');
+  app.innerHTML = html;
+  current = key;
+  document.title = (caseIds.includes(r) ? L(PROJECTS.find((p) => p.id === r)).name + ' | ' : '') + t('title');
+  $$('.nav a').forEach((a) => a.classList.toggle('on', a.getAttribute('href') === '#' + r || (r !== 'ux' && caseIds.includes(r) && a.getAttribute('href') === '#ux')));
+  splitChars(); observe(); bindView();
+  if (scrollTarget && $('#' + scrollTarget)) $('#' + scrollTarget).scrollIntoView({behavior: reduce ? 'auto' : 'smooth'});
+  else window.scrollTo(0, 0);
+}
+
+function go(){
+  const r = routeOf();
+  const [key] = viewFor(r);
+  const anchor = (r === 'sobre' || r === 'contato') ? r : null;
+  closeMenu();
+  if (anchor && current === 'home') { $('#' + r).scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); return; }
+  if (key === current) { if (!anchor) window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'}); return; }
+  if (reduce || current === null) { render(anchor); return; }
+  const c = $('#curtain');
+  c.className = 'cover';
+  setTimeout(() => { render(anchor); c.className = 'leave'; setTimeout(() => { c.className = ''; }, 520); }, 460);
+}
+window.addEventListener('hashchange', go);
+
+/* ---------- i18n ---------- */
+function applyStatic(){
+  document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+  $$('[data-k]').forEach((el) => { el.innerHTML = t(el.dataset.k); });
+  $$('.lang button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
+  $$('.cv-link').forEach((a) => a.setAttribute('href', cvHref()));
+  $('#lb .close').setAttribute('aria-label', t('lb.close'));
+  $('#lb .prev').setAttribute('aria-label', t('lb.prev'));
+  $('#lb .next').setAttribute('aria-label', t('lb.next'));
+}
+$$('.lang button').forEach((b) => b.addEventListener('click', () => {
+  if (b.dataset.lang === lang) return;
+  lang = b.dataset.lang;
+  try { localStorage.setItem('nr-lang', lang); } catch (e) {}
+  applyStatic(); const y = window.scrollY; current = null; render(); window.scrollTo(0, y);
+}));
+
+/* ---------- effects ---------- */
+function splitChars(){
+  $$('.split').forEach((el) => {
+    let d = 0;
+    const walk = (node) => {
+      Array.from(node.childNodes).forEach((n) => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach((word) => {
+            if (!word) return;
+            if (/^\s+$/.test(word)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const w = document.createElement('span'); w.className = 'split-w';   /* palavra inteira nunca quebra */
+            Array.from(word).forEach((ch) => {
+              const s = document.createElement('span'); s.className = 'split-ch'; s.textContent = ch; s.style.animationDelay = (0.15 + d * 0.035) + 's'; d++; w.appendChild(s);
+            });
+            frag.appendChild(w);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && !n.classList.contains('blink')) walk(n);
+      });
+    };
+    el.setAttribute('aria-label', el.textContent); walk(el);
+  });
+}
+let io;
+function observe(){
+  if (io) io.disconnect();
+  if (!('IntersectionObserver' in window)) { $$('.rv').forEach((e) => e.classList.add('in')); return; }
+  io = new IntersectionObserver((ents) => ents.forEach((en) => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } }), {threshold: .12, rootMargin: '0px 0px -40px 0px'});
+  $$('.rv').forEach((e, i) => { e.style.transitionDelay = (i % 4) * 0.06 + 's'; io.observe(e); });
+}
+
+/* scroll progress (case pages) */
+window.addEventListener('scroll', () => {
+  const bar = $('.progress');
+  if (!current || !current.startsWith('case-')) { bar.style.width = 0; return; }
+  const h = document.documentElement.scrollHeight - innerHeight;
+  bar.style.width = (h > 0 ? (scrollY / h) * 100 : 0) + '%';
+}, {passive: true});
+
+/* custom cursor */
+(function(){
+  if (reduce || !window.matchMedia('(pointer:fine)').matches) return;
+  document.documentElement.classList.add('has-cursor');
+  const dot = $('.cur-dot'), ring = $('.cur-ring'), lab = ring.querySelector('span');
+  let x = -200, y = -200, rx = -200, ry = -200;
+  addEventListener('mousemove', (e) => {
+    x = e.clientX; y = e.clientY; dot.style.transform = `translate(${x}px,${y}px)`;
+    document.body.classList.add('cur-on');
+    const tg = e.target.closest && e.target.closest('[data-cursor],a,button');
+    ring.classList.remove('is-link', 'is-view');
+    if (tg) { const c = tg.getAttribute('data-cursor'); if (c) { ring.classList.add('is-view'); lab.textContent = c; } else ring.classList.add('is-link'); }
+  }, {passive: true});
+  document.addEventListener('mouseleave', () => document.body.classList.remove('cur-on'));
+  (function loop(){ rx += (x - rx) * .18; ry += (y - ry) * .18; ring.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(loop); })();
+})();
+
+/* magnetic buttons */
+document.addEventListener('mousemove', (e) => {
+  const b = e.target.closest && e.target.closest('.btn.solid');
+  $$('.btn.solid').forEach((el) => { if (el !== b) el.style.translate = ''; });
+  if (!b || reduce) return;
+  const r = b.getBoundingClientRect();
+  b.style.translate = `${(e.clientX - r.left - r.width / 2) * .18}px ${(e.clientY - r.top - r.height / 2) * .25}px`;
+}, {passive: true});
+
+/* toast + copy */
+function toast(msg){ const el = $('#toast'); el.textContent = msg; el.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => el.classList.remove('show'), 2200); }
+
+/* gallery + lightbox */
+let lbList = [], lbPos = 0;
+function visiblePhotos(){ return PHOTOS.map((p, i) => i).filter((i) => photoCat === 'todos' || PHOTOS[i].cat === photoCat); }
+function setCat(c){
+  photoCat = c;
+  $$('.chip').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cat === c)));
+  $$('#gallery .tile').forEach((el) => el.classList.toggle('dim', !(c === 'todos' || el.dataset.cat === c)));
+  const n = visiblePhotos().length; const cnt = $('#count'); if (cnt) cnt.textContent = n + ' ' + t('foto.count');
+}
+function openLb(i){
+  lbList = (current === 'fotografia') ? visiblePhotos() : PHOTOS.map((p, k) => k);
+  lbPos = Math.max(0, lbList.indexOf(i)); drawLb();
+  $('#lb').classList.add('open'); document.body.style.overflow = 'hidden'; $('#lb .close').focus();
+}
+function drawLb(){
+  const i = lbList[lbPos], p = PHOTOS[i];
+  $('#lb-fig').innerHTML = (p.src ? `<img src="${p.src}" alt="${t('cats')[p.cat]} · ${esc(p.place)}">` : `<div class="ph">[${t('foto.ph')} ${String(i + 1).padStart(2,'0')}]</div>`) + `<figcaption>${t('cats')[p.cat]} · ${esc(p.place)} · ${lbPos + 1}/${lbList.length}</figcaption>`;
+}
+function closeLb(){ $('#lb').classList.remove('open'); document.body.style.overflow = ''; }
+function stepLb(d){ lbPos = (lbPos + d + lbList.length) % lbList.length; drawLb(); }
+$('#lb .close').addEventListener('click', closeLb);
+$('#lb .prev').addEventListener('click', () => stepLb(-1));
+$('#lb .next').addEventListener('click', () => stepLb(1));
+$('#lb').addEventListener('click', (e) => { if (e.target.id === 'lb') closeLb(); });
+document.addEventListener('keydown', (e) => {
+  if (!$('#lb').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb(); else if (e.key === 'ArrowLeft') stepLb(-1); else if (e.key === 'ArrowRight') stepLb(1);
+});
+
+function figmaEmbed(u){
+  try {
+    const x = new URL(u);
+    if (x.hostname !== 'embed.figma.com') x.hostname = 'embed.figma.com';
+    x.searchParams.set('embed-host', 'nathanricarte');
+    x.searchParams.set('hide-ui', '1');
+    x.searchParams.set('scaling', 'scale-down');
+    x.searchParams.set('content-scaling', 'fixed');
+    x.searchParams.set('footer', 'false');
+    return x.toString();
+  } catch (e) { return u; }
+}
+function bindView(){
+  $$('[data-proto]').forEach((b) => b.addEventListener('click', () => {
+    const p = PROJECTS.find((x) => x.id === b.dataset.proto); if (!p || !p.proto) return;
+    const scr = b.parentElement;
+    scr.innerHTML = `<div class="proto-loading">${t('proto.loading')}</div><iframe src="${figmaEmbed(p.proto)}" title="${esc(L(p).name)} · protótipo" allowfullscreen loading="eager"></iframe>`;
+  }));
+  $$('.tile').forEach((el) => {
+    const open = () => openLb(Number(el.dataset.i));
+    el.addEventListener('click', open);
+    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+  });
+  $$('.chip').forEach((b) => b.addEventListener('click', () => setCat(b.dataset.cat)));
+  if (current === 'fotografia') setCat(photoCat);
+  $$('[data-copy]').forEach((b) => b.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText(b.dataset.copy); toast(t('copied')); } catch (e) { toast(b.dataset.copy); }
+  }));
+}
+
+/* mobile menu */
+const menuBtn = $('.menu-btn');
+function closeMenu(){ $('#nav').classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
+menuBtn.addEventListener('click', () => { const o = $('#nav').classList.toggle('open'); menuBtn.setAttribute('aria-expanded', String(o)); });
+
+/* boot */
+applyStatic();
+go();
+</script>
+</body>
+</html>
