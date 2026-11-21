@@ -304,7 +304,7 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
 <div id="curtain" aria-hidden="true"></div>
 <div class="progress" aria-hidden="true"></div>
 
-<a class="sr" href="#app">Pular para o conteúdo</a>
+<a class="sr" href="#app" data-k="skip">Pular para o conteúdo</a>
 <header class="site">
   <a class="logo lift" href="#inicio">NATHAN RICARTE</a>
   <nav class="nav" id="nav" aria-label="Principal">
@@ -340,8 +340,7 @@ footer.site .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-bet
 
 <script>
 /* =========================================================
-   CONTEÚDO · edite aqui. Tudo que está entre [colchetes]
-   é espaço reservado esperando a informação real.
+   CONTEÚDO
    ========================================================= */
 const CONTACT = {
   email: 'Nathanricarte@gmail.com',
@@ -352,24 +351,8 @@ const CONTACT = {
   cv: { pt: 'cv/cv-nathan-ricarte-pt.pdf', en: 'cv/cv-nathan-ricarte-en.pdf' }  // currículo em PDF, um por idioma
 };
 
-/* Fotos: troque src:null pelo caminho da foto (ex.: 'img/fotos/show-01.jpg').
-   size: '' | 'w2' (larga) | 'h2r' (alta) | 'w2 h2r' (grande) */
-const PHOTOS = [
-  {src:null,cat:'moda',size:'w2 h2r',place:'[LOCAL, ANO]'},
-  {src:null,cat:'ensaios',size:'',place:'[LOCAL, ANO]'},
-  {src:null,cat:'moda',size:'h2r',place:'[LOCAL, ANO]'},
-  {src:null,cat:'eventos',size:'',place:'[LOCAL, ANO]'},
-  {src:null,cat:'moda',size:'h2r',place:'[LOCAL, ANO]'},
-  {src:null,cat:'ensaios',size:'',place:'[LOCAL, ANO]'},
-  {src:null,cat:'moda',size:'w2',place:'[LOCAL, ANO]'},
-  {src:null,cat:'eventos',size:'',place:'[LOCAL, ANO]'},
-  {src:null,cat:'moda',size:'',place:'[LOCAL, ANO]'},
-  {src:null,cat:'ensaios',size:'w2 h2r',place:'[LOCAL, ANO]'},
-  {src:null,cat:'moda',size:'',place:'[LOCAL, ANO]'},
-  {src:null,cat:'ensaios',size:'h2r',place:'[LOCAL, ANO]'},
-  {src:null,cat:'eventos',size:'',place:'[LOCAL, ANO]'},
-  {src:null,cat:'moda',size:'',place:'[LOCAL, ANO]'}
-];
+/* Fotos: {src:'img/fotos/arquivo.jpg', cat:'moda'|'ensaios'|'eventos', size:''|'w2'|'h2r'|'w2 h2r', place:'Local, ano'} */
+const PHOTOS = [];
 const PHOTO_CATS = ['todos','moda','ensaios','eventos'];
 
 /* Projetos (ordem = ordem no site). kind: work | study | soon
@@ -482,7 +465,7 @@ const PROJECTS = [
 ];
 const STUDIES = []; /* estudos agora ficam na lista principal de cases */
 
-/* Formação e certificados · complete os [colchetes]. link: URL do certificado (opcional) */
+/* Formação e certificados */
 const EDU = [
  {pt:['Bacharelado em Design','Unifor','2023.1 a 2027.1 (previsão de conclusão)'],en:['B.A. in Design','Unifor','2023 to 2027 (expected graduation)'],link:''},
  {pt:['uiStart · UI Design','Lucas Assis & Tiago Luchtenberg','18 h · 2023'],en:['uiStart · UI Design','Lucas Assis & Tiago Luchtenberg','18 h · 2023'],link:'cert/certificado-uistart.pdf'},
@@ -492,7 +475,7 @@ const EDU = [
 /* Textos fixos da interface */
 const T = {
  pt:{
-  'nav.cv':'/currículo ↓','nav.ux':'/ux','nav.photo':'/fotografia','nav.about':'/sobre','nav.contact':'/contato',
+  'skip':'Pular para o conteúdo','nav.cv':'/currículo ↓','nav.ux':'/ux','nav.photo':'/fotografia','nav.about':'/sobre','nav.contact':'/contato',
   status:'Disponível para projetos','footer.place':'Fortaleza, CE · Brasil','footer.top':'voltar ao topo ↑',
   'hero.kicker':'// Fortaleza, CE · Design @ Unifor','hero.l1':'UX DESIGNER','hero.l2':'& FOTÓGRAFO',
   'hero.p':'UX designer focado em pesquisa, usabilidade e acessibilidade. Transformo necessidades reais das pessoas em experiências digitais claras e intuitivas. Na fotografia, levo o mesmo olhar para a moda.',
@@ -501,7 +484,7 @@ const T = {
   'p2.k':'/02 · FOTOGRAFIA','p2.t':'Através das lentes.','p2.d':'Moda street e ensaios autorais · @nathanricarte.raw',
   marquee:['UX DESIGN','UI DESIGN','PESQUISA','PROTOTIPAÇÃO','DESIGN SYSTEMS','FOTOGRAFIA'],
   'feat.h':'/Trabalhos em destaque','feat.all':'ver todos →','photo.h':'/Fotografia','photo.all':'abrir galeria →',
-  'about.h':'/Sobre mim','about.photo':'[SUA FOTO]',
+  'about.h':'/Sobre mim','about.photo':'Nathan Ricarte',
   'about.lead':'Sou Nathan Ricarte, designer em formação baseado em Fortaleza. Meu foco é UX: entender as pessoas, investigar problemas e transformar isso em experiências digitais intuitivas e funcionais. Fora das telas, uso a câmera para registrar moda e estilo.',
   'about.p':'Graduando em Design pela Unifor, com conclusão prevista para 2027, e com 6 meses de experiência como UX/UI Designer na Fiocruz Ceará. Gosto de pesquisa, de testar hipóteses e de desenvolver produtos digitais que façam sentido para quem usa.',
   'about.now':'AGORA','about.nowt':'Finalizando meu TCC sobre acessibilidade cognitiva · aberto a oportunidades em UX',
@@ -512,18 +495,18 @@ const T = {
   'ux.cv':'Currículo','studies.h':'/Estudos','studies.s':'onde tudo começou','edu.h':'/Formação & certificados','edu.s':'base acadêmica e cursos','edu.see':'ver certificado ↗','figma':'Abrir no Figma ↗',
   'case.problem':'/01 · o problema','case.context':'/02 · contexto e papel','case.process':'/03 · o processo','case.solution':'/04 · a solução','case.learn':'/05 · aprendizados',
   'case.next':'próximo case','case.back':'← todos os cases','case.of':'case',
-  'case.proto':'/protótipo · teste você mesmo','proto.t':'Navegue como se fosse o app de verdade.','proto.p':'Este é o protótipo interativo feito no Figma. Clique nos botões, abra telas e percorra o fluxo principal.','proto.play':'Testar protótipo','proto.hint':'carrega o Figma aqui mesmo','proto.full':'Abrir em tela cheia ↗','proto.loading':'carregando protótipo…','proto.preview':'Na pré-visualização do Claude o protótipo abre em nova aba. No site publicado ele roda aqui dentro.','cur.test':'Testar',
+  'case.proto':'/protótipo · teste você mesmo','proto.t':'Navegue como se fosse o app de verdade.','proto.p':'Este é o protótipo interativo feito no Figma. Clique nos botões, abra telas e percorra o fluxo principal.','proto.play':'Testar protótipo','proto.hint':'carrega o Figma aqui mesmo','proto.full':'Abrir em tela cheia ↗','proto.loading':'carregando protótipo…','cur.test':'Testar',
   'soon.t':'Este case está sendo escrito.','soon.p':'A pesquisa está em andamento. Assim que o TCC for concluído, o case completo aparece aqui.',
-  'ph.screen':'[TELA EM ALTA · ENVIAR EXPORT]','nda.note':'Projeto sob confidencialidade: telas e dados internos não são exibidos.',
+  'ph.screen':'','nda.note':'Projeto sob confidencialidade: telas e dados internos não são exibidos.',
   'foto.h':'Através<br>das lentes<span style="color:var(--acc)">.</span>','foto.p':'Fotografia de moda street e ensaios autorais, com forte inspiração na fotografia de moda asiática: composição precisa, cores marcantes e atitude. O mesmo olhar atento que uso em UX, apontado para estilo e expressão.',
-  'foto.count':'fotos','foto.cta':'Tem um ensaio ou evento em mente? Vamos criar juntos.','foto.btn':'Pedir orçamento',
+  'foto.count':'fotos','foto.soon.k':'/galeria em atualização','foto.soon.p':'A galeria completa chega em breve. Enquanto isso, os trabalhos mais recentes estão no Instagram.','foto.cta':'Tem um ensaio ou evento em mente? Vamos criar juntos.','foto.btn':'Pedir orçamento',
   'foto.ph':'FOTO',cats:{todos:'Todos',moda:'Moda street',ensaios:'Ensaios autorais',eventos:'Eventos'},
   'lb.close':'Fechar','lb.prev':'Anterior','lb.next':'Próxima',
   'cur.view':'Ver case','cur.open':'Abrir','cur.enter':'Entrar','cur.zoom':'Ampliar',
   title:'Nathan Ricarte | UX Designer & Fotógrafo'
  },
  en:{
-  'nav.cv':'/résumé ↓','nav.ux':'/ux','nav.photo':'/photography','nav.about':'/about','nav.contact':'/contact',
+  'skip':'Skip to content','nav.cv':'/résumé ↓','nav.ux':'/ux','nav.photo':'/photography','nav.about':'/about','nav.contact':'/contact',
   status:'Available for projects','footer.place':'Fortaleza, CE · Brazil','footer.top':'back to top ↑',
   'hero.kicker':'// Fortaleza, Brazil · Design @ Unifor','hero.l1':'UX DESIGNER','hero.l2':'& PHOTOGRAPHER',
   'hero.p':'UX designer focused on research, usability and accessibility. I turn people\'s real needs into clear, intuitive digital experiences. In photography, I bring the same eye to fashion.',
@@ -532,7 +515,7 @@ const T = {
   'p2.k':'/02 · PHOTOGRAPHY','p2.t':'Through the lens.','p2.d':'Street fashion and editorial shoots · @nathanricarte.raw',
   marquee:['UX DESIGN','UI DESIGN','RESEARCH','PROTOTYPING','DESIGN SYSTEMS','PHOTOGRAPHY'],
   'feat.h':'/Featured work','feat.all':'see all →','photo.h':'/Photography','photo.all':'open gallery →',
-  'about.h':'/About me','about.photo':'[YOUR PHOTO]',
+  'about.h':'/About me','about.photo':'Nathan Ricarte',
   'about.lead':'I\'m Nathan Ricarte, a design student based in Fortaleza, Brazil. My focus is UX: understanding people, investigating problems and turning them into intuitive, functional digital experiences. Away from the screen, I use my camera to capture fashion and style.',
   'about.p':'Design undergraduate at Unifor, graduating in 2027, with 6 months of experience as a UX/UI Designer at Fiocruz Ceará. I enjoy research, testing hypotheses and building digital products that make sense to the people who use them.',
   'about.now':'NOW','about.nowt':'Wrapping up my thesis on cognitive accessibility · open to UX opportunities',
@@ -543,11 +526,11 @@ const T = {
   'ux.cv':'Résumé','studies.h':'/Studies','studies.s':'where it all started','edu.h':'/Education & certificates','edu.s':'academic background and courses','edu.see':'see certificate ↗','figma':'Open in Figma ↗',
   'case.problem':'/01 · the problem','case.context':'/02 · context & role','case.process':'/03 · the process','case.solution':'/04 · the solution','case.learn':'/05 · takeaways',
   'case.next':'next case','case.back':'← all cases','case.of':'case',
-  'case.proto':'/prototype · try it yourself','proto.t':'Use it like the real app.','proto.p':'This is the interactive prototype built in Figma. Tap buttons, open screens and walk through the main flow.','proto.play':'Try the prototype','proto.hint':'loads Figma right here','proto.full':'Open full screen ↗','proto.loading':'loading prototype…','proto.preview':'In the Claude preview the prototype opens in a new tab. On the published site it runs right here.','cur.test':'Try it',
+  'case.proto':'/prototype · try it yourself','proto.t':'Use it like the real app.','proto.p':'This is the interactive prototype built in Figma. Tap buttons, open screens and walk through the main flow.','proto.play':'Try the prototype','proto.hint':'loads Figma right here','proto.full':'Open full screen ↗','proto.loading':'loading prototype…','cur.test':'Try it',
   'soon.t':'This case study is being written.','soon.p':'The research is in progress. Once the thesis is done, the full case will live here.',
-  'ph.screen':'[HIGH-RES SCREEN · SEND EXPORT]','nda.note':'Confidential project: screens and internal data are not shown.',
+  'ph.screen':'','nda.note':'Confidential project: screens and internal data are not shown.',
   'foto.h':'Through<br>the lens<span style="color:var(--acc)">.</span>','foto.p':'Street fashion and editorial photography, strongly inspired by Asian fashion photography: precise composition, bold color and attitude. The same attentive eye I use in UX, pointed at style and expression.',
-  'foto.count':'photos','foto.cta':'Planning a shoot or an event? Let\'s create it together.','foto.btn':'Get a quote',
+  'foto.count':'photos','foto.soon.k':'/gallery being updated','foto.soon.p':'The full gallery is coming soon. Meanwhile, my latest work is on Instagram.','foto.cta':'Planning a shoot or an event? Let\'s create it together.','foto.btn':'Get a quote',
   'foto.ph':'PHOTO',cats:{todos:'All',moda:'Street fashion',ensaios:'Editorial',eventos:'Events'},
   'lb.close':'Close','lb.prev':'Previous','lb.next':'Next',
   'cur.view':'View case','cur.open':'Open','cur.enter':'Enter','cur.zoom':'Zoom',
@@ -568,7 +551,7 @@ const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;',
 const ARROW = '<svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg>';
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let photoCat = 'todos';
-/* Na pré-visualização do Claude, sites externos não podem ser incorporados: o protótipo abre em nova aba. */
+/* Onde não dá para incorporar o Figma, o protótipo abre em nova aba. */
 const CAN_EMBED = !/claude/i.test(location.hostname) && location.protocol !== 'file:';
 const caseIds = PROJECTS.map((p) => p.id);
 
@@ -611,7 +594,7 @@ function vHome(){
         <div class="txt"><span class="label">${t('p1.k')}</span><span class="big">${t('p1.t')}</span><span style="color:var(--fg-2)">${t('p1.d')}</span></div>
       </a>
       <a href="#fotografia" class="panel" data-cursor="${t('cur.enter')}">
-        <div class="mosaic" aria-hidden="true">${PHOTOS.slice(0, 6).map((p) => `<div>${p.src ? `<img src="${p.src}" alt="">` : ''}</div>`).join('')}</div>
+        ${PHOTOS.length ? `<div class="mosaic" aria-hidden="true">${PHOTOS.slice(0, 6).map((p) => `<div><img src="${p.src}" alt=""></div>`).join('')}</div>` : `<img src="img/lentes.jpg" alt="" style="object-position:50% 50%">`}
         <div class="shade"></div>
         <div class="txt"><span class="label">${t('p2.k')}</span><span class="big">${t('p2.t')}</span><span style="color:var(--fg-2)">${t('p2.d')}</span></div>
       </a>
@@ -624,12 +607,12 @@ function vHome(){
       <div class="cards">${feat}</div>
     </div>
   </section>
-  <section style="padding:0 var(--pad) 120px">
+  ${PHOTOS.length ? `<section style="padding:0 var(--pad) 120px">
     <div class="wrap">
       <div class="sec-head"><h2 class="h2 rv">${t('photo.h')}</h2><a class="mono lift" href="#fotografia" style="font-size:14px">${t('photo.all')}</a></div>
       <div class="mosaic-grid rv">${prev}</div>
     </div>
-  </section>
+  </section>` : ''}
   <section class="sec" id="sobre" style="border-top:1px solid var(--line)">
     <div class="wrap about">
       <div class="l"><h2 class="h2 rv">${t('about.h')}</h2><div class="rv" style="aspect-ratio:4/5;max-width:380px;border-radius:20px;overflow:hidden;border:1px solid var(--line)"><img src="img/nathan.jpg" alt="Nathan Ricarte" style="width:100%;height:100%;object-fit:cover"></div></div>
@@ -751,7 +734,6 @@ function vCase(id){
       <b style="font:700 clamp(28px,3.4vw,48px)/1.1 var(--display);letter-spacing:-.02em">${t('proto.t')}</b>
       <p>${t('proto.p')}</p>
       <a class="btn" href="${p.proto}" style="align-self:flex-start">${t('proto.full')}</a>
-      ${CAN_EMBED ? '' : `<span class="mono" style="font-size:11px;color:var(--fg-4)">${t('proto.preview')}</span>`}
     </div>
     <div class="proto-stage rv">
       <div class="device ${p.device || 'mobile'}">
@@ -775,7 +757,7 @@ function vCase(id){
   </div></section>
   <section style="padding:0 var(--pad) 120px"><div class="wrap" style="display:flex;flex-direction:column;gap:40px">
     <span class="label">${t('case.solution')}</span>
-    <div class="feats">${d.feats.map((f) => `<div class="feat rv">${p.nda ? '' : f[2] ? `<div class="fimg"><img src="${f[2]}" alt="${esc(f[0])}" loading="lazy"></div>` : `<div class="ph">${t('ph.screen')}</div>`}<b>${esc(f[0])}</b><p>${esc(f[1])}</p></div>`).join('')}</div>
+    <div class="feats">${d.feats.map((f) => `<div class="feat rv">${(!p.nda && f[2]) ? `<div class="fimg"><img src="${f[2]}" alt="${esc(f[0])}" loading="lazy"></div>` : ''}<b>${esc(f[0])}</b><p>${esc(f[1])}</p></div>`).join('')}</div>
   </div></section>
   <section style="padding:0 var(--pad) 120px"><div class="wrap learn rv block">
     <div class="k"><span class="label">${t('case.learn')}</span></div>
@@ -804,8 +786,11 @@ function vFoto(){
       </div>
     </div>
   </section>
-  <section style="padding:0 var(--pad) 32px"><div class="wrap chips" role="group" aria-label="Categorias">${chips}<span class="mono" id="count" style="margin-left:auto;font-size:12px;color:var(--fg-4)"></span></div></section>
-  <section style="padding:0 var(--pad) 120px"><div class="wrap mosaic-grid" id="gallery">${PHOTOS.map((p, i) => tile(p, i)).join('')}</div></section>
+  ${PHOTOS.length ? `<section style="padding:0 var(--pad) 32px"><div class="wrap chips" role="group" aria-label="Categorias">${chips}<span class="mono" id="count" style="margin-left:auto;font-size:12px;color:var(--fg-4)"></span></div></section>
+  <section style="padding:0 var(--pad) 120px"><div class="wrap mosaic-grid" id="gallery">${PHOTOS.map((p, i) => tile(p, i)).join('')}</div></section>` : `<section style="padding:0 var(--pad) 48px"><div class="wrap rv" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;padding:48px;border-radius:24px;border:1px dashed var(--line-2)">
+    <div style="display:flex;flex-direction:column;gap:8px;max-width:520px"><span class="label">${t('foto.soon.k')}</span><p style="margin:0;font-size:17px;line-height:1.6;color:var(--fg-2)">${t('foto.soon.p')}</p></div>
+    <a class="btn" href="${CONTACT.instagram}">${CONTACT.instagramHandle} ↗</a>
+  </div></section>`}
   <section style="padding:0 var(--pad) 96px"><div class="wrap rv" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;padding:48px;border-radius:24px;border:1px solid var(--line);background:var(--bg-2)">
     <b style="font:700 clamp(28px,3.4vw,48px)/1.1 var(--display);letter-spacing:-.02em">${t('foto.cta')}</b>
     <a class="btn solid" href="#contato">${t('foto.btn')}</a>
